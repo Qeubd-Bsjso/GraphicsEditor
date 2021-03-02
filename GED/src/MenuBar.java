@@ -14,6 +14,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	JMenuItem loadItem;
 	JMenuItem saveItem;
 	JMenuItem exitItem;
+	
+	JMenuItem userGuideItem;
 	MenuBar(){
 		this.setFocusable(false);
 		
@@ -50,6 +52,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		fileMenu.add(loadItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
+		
+		// creating items for help menu
+		userGuideItem = new JMenuItem("User Guide");
+		
+		// setting working for items in help menu
+		userGuideItem.addActionListener(this);
+		
+		// Adding items to help menu
+		helpMenu.add(userGuideItem);
 
 		// adding items to menu bar 
 		this.add(fileMenu);
@@ -69,6 +80,9 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		}
 		else if(e.getSource()==exitItem){
 			System.exit(0);
+		}
+		else if(e.getSource()==userGuideItem) {
+			new UserGuide();
 		}
 	}
 	

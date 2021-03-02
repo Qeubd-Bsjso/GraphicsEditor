@@ -23,20 +23,23 @@ public class OptionPlate extends JPanel implements ActionListener{
 		pen = new JButton(new ImageIcon("src/images/pen.png"));
 		pen.setPreferredSize(new Dimension(30,30));
 		pen.setFocusable(false);
+		pen.setToolTipText("Pen");
 		
 		eraser = new JButton(new ImageIcon("src/images/eraser.png"));
 		eraser.setPreferredSize(new Dimension(30,30));
 		eraser.setFocusable(false);
+		eraser.setToolTipText("Eraser");
 		
 		line = new JButton(new ImageIcon("src/images/line.png"));
 		line.setPreferredSize(new Dimension(30,30));
 		line.setFocusable(false);
 		
+		
 		rectangle = new JButton(new ImageIcon("src/images/rectangle.png"));
 		rectangle.setPreferredSize(new Dimension(30,30));
 		rectangle.setFocusable(false);
-		
 		eclipse = new JButton(new ImageIcon("src/images/eclipse.png"));
+		
 		eclipse.setPreferredSize(new Dimension(30,30));
 		eclipse.setFocusable(false);
 		
