@@ -8,20 +8,37 @@ import javax.swing.JMenuItem;
 public class MenuBar extends JMenuBar implements ActionListener{
 	JMenu fileMenu;
 	JMenu editMenu;
+	JMenu insertMenu;
 	JMenu helpMenu;
 	
+	// file menu
 	JMenuItem newItem;
 	JMenuItem loadItem;
 	JMenuItem saveItem;
+	JMenuItem clearItem;
 	JMenuItem exitItem;
 	
+	// edit menu
+	JMenuItem undoItem;
+	JMenuItem redoItem;
+	JMenuItem cutItem;
+	JMenuItem copyItem;
+	JMenuItem pasteItem;
+	
+	// insert menu
+	JMenuItem insertImageItem;
+	JMenuItem insertTextItem;
+	
+	//help menu
 	JMenuItem userGuideItem;
+	JMenuItem aboutGeDItem;
 	MenuBar(){
 		this.setFocusable(false);
 		
 		// creating  menus
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
+		insertMenu = new JMenu("Insert");
 		helpMenu = new JMenu("Help");
 		
 		//setting mnemonics(shortcuts) for menus
@@ -33,14 +50,27 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		newItem = new JMenuItem("New");
 		loadItem = new JMenuItem("Load");
 		saveItem = new JMenuItem("Save");
+		clearItem = new JMenuItem("Clear");
 		exitItem = new JMenuItem("Exit");
 
 		// Setting Workings for the menuItems for file menu 
-		newItem.addActionListener(this);
-		loadItem.addActionListener(this);
-		saveItem.addActionListener(this);
-		exitItem.addActionListener(this);
+		newItem.addActionListener(e->{
+							System.out.println("New");
+						});
+		loadItem.addActionListener(e->{
+							System.out.println("Load");
+						});
+		saveItem.addActionListener(e->{
+							System.out.println("Save");
+						});
+		exitItem.addActionListener(e->{
+							System.exit(0);
+						});
+		clearItem.addActionListener(e->{
+							System.out.println("Clear");
+						});
 		
+			
 		// setting mnemonics (shortcuts) for menuItems for file menu 
 		newItem.setMnemonic(KeyEvent.VK_N);
 		loadItem.setMnemonic(KeyEvent.VK_L);
@@ -51,39 +81,81 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		fileMenu.add(newItem);
 		fileMenu.add(loadItem);
 		fileMenu.add(saveItem);
+		fileMenu.add(clearItem);
 		fileMenu.add(exitItem);
+		
+		// creating items for edit menu
+		undoItem = new JMenuItem("Undo");
+		redoItem = new JMenuItem("Redo");
+		cutItem = new JMenuItem("Cut");
+		copyItem = new JMenuItem("Copy");
+		pasteItem = new JMenuItem("Paste");
+		
+		// Setting working for Edit menu Items
+		undoItem.addActionListener(e->{
+							System.out.println("Undo");
+						});
+		redoItem.addActionListener(e->{
+							System.out.println("Redo");
+						});
+		cutItem.addActionListener(e->{
+							System.out.println("Cut");
+						});
+		copyItem.addActionListener(e->{
+							System.out.println("Copy");
+						});
+		pasteItem.addActionListener(e->{
+							System.out.println("Paste");
+						});
+		
+		// adding items to Edit menu
+		editMenu.add(undoItem);
+		editMenu.add(redoItem);
+		editMenu.add(cutItem);
+		editMenu.add(copyItem);
+		editMenu.add(pasteItem);
+		
+		// creating items for insert menu
+		insertImageItem = new JMenuItem("Image");
+		insertTextItem = new JMenuItem("Text");
+		
+		// setting working for items in insert menu
+		insertImageItem.addActionListener(e->{
+							System.out.println("Add Image");
+						});
+		insertTextItem.addActionListener(e->{
+							System.out.println("Add Text");
+						});
+		
+		// Adding items in insert menu
+		insertMenu.add(insertImageItem);
+		insertMenu.add(insertTextItem);
 		
 		// creating items for help menu
 		userGuideItem = new JMenuItem("User Guide");
+		aboutGeDItem = new JMenuItem("About GeD");
 		
 		// setting working for items in help menu
-		userGuideItem.addActionListener(this);
+		userGuideItem.addActionListener(e->{
+							new UserGuide();
+						});
+		aboutGeDItem.addActionListener(e->{
+							new AboutGeD();
+						});
 		
 		// Adding items to help menu
 		helpMenu.add(userGuideItem);
+		helpMenu.add(aboutGeDItem);
 
 		// adding items to menu bar 
 		this.add(fileMenu);
 		this.add(editMenu);
+		this.add(insertMenu);
 		this.add(helpMenu);
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		if(e.getSource()==newItem) {
-			System.out.print("New");
-		}
-		else if(e.getSource()==loadItem){
-			System.out.println("Load");
-		}
-		else if(e.getSource()==saveItem){
-			System.out.println("Save");
-		}
-		else if(e.getSource()==exitItem){
-			System.exit(0);
-		}
-		else if(e.getSource()==userGuideItem) {
-			new UserGuide();
-		}
+		
 	}
 	
 }

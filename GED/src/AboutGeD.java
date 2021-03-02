@@ -5,16 +5,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class UserGuide {
-	UserGuide() {
-		JFrame guide=new JFrame("User Guide");
-		guide.setSize(420,380);
-		guide.setLocationRelativeTo(null);
+public class AboutGeD {
+	AboutGeD(){
+		JFrame about=new JFrame("About GeD");
+		about.setSize(420,380);
+		about.setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -25,7 +26,7 @@ public class UserGuide {
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textArea.setEditable(false);
 		
-		File file = new File("docs/guide.txt");
+		File file = new File("docs/about.txt");
 		
 		try{
 			BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -39,8 +40,8 @@ public class UserGuide {
 		
 		panel.add(scrollPane,BorderLayout.CENTER);
 		
-		guide.add(panel);
+		about.add(panel);
 		
-		guide.setVisible(true);
+		about.setVisible(true);
 	}
 }

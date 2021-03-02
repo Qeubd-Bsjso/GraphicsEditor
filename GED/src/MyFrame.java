@@ -10,7 +10,7 @@ public class MyFrame extends JFrame {
 		//Title of frame
 		this.setTitle("GeD");
 		//initial size of frame
-		this.setSize(1200,700);
+		this.setSize(800,600);
 		//exit program on close operation
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);	
