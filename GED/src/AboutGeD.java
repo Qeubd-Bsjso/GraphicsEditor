@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,6 +24,8 @@ public class AboutGeD {
 		JTextArea textArea = new JTextArea("Can not load File !!! Sorry");
 		textArea.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 18));
 		textArea.setForeground(new Color(0x201f14));
+		textArea.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		textArea.setLineWrap(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textArea.setEditable(false);
 		

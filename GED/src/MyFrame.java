@@ -6,6 +6,8 @@ public class MyFrame extends JFrame {
 	
 	MenuBar menuBar;
 	OptionPlate options;
+	Canvas canvas;
+	BottomBar bottomBar;
 	MyFrame(){
 		//Title of frame
 		this.setTitle("GeD");
@@ -17,23 +19,21 @@ public class MyFrame extends JFrame {
 		
 		this.setLayout(new BorderLayout(1,1));
 		
-		
-		// logo 
+		 
 		//ImageIcon icon = new ImageIcon("images/logo.png");
 		//this.setIconImage(icon.getImage());
 		
-		//creating menu bar
+		// creating menu bar , option plate , canvas , bottomBar
 		menuBar = new MenuBar();
-		
-		//creating option plate
 		options = new OptionPlate();
+		canvas = new Canvas();
+		bottomBar = new BottomBar();
 		
-		
-		//adding menu bar
+		// adding menu bar , option plate , canvas , bottomBar 
 		this.add(menuBar,BorderLayout.NORTH);
-		//adding option plate
 		this.add(options,BorderLayout.EAST);
-		//
+		this.add(canvas,BorderLayout.CENTER);
+		this.add(bottomBar,BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 	}

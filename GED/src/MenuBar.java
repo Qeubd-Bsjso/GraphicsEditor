@@ -1,9 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileFilter;
 
 public class MenuBar extends JMenuBar implements ActionListener{
 	JMenu fileMenu;
@@ -58,10 +61,27 @@ public class MenuBar extends JMenuBar implements ActionListener{
 							System.out.println("New");
 						});
 		loadItem.addActionListener(e->{
-							System.out.println("Load");
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.setCurrentDirectory(new File("./files"));
+							fileChooser.setFileFilter(new FileFilter() {
+									    public String getDescription() {
+									        return "jpg fiels (*.jpg)";
+									    }
+									 
+									    public boolean accept(File f) {
+									        if (f.isDirectory()) {
+									            return true;
+									        } else {
+									            return f.getName().toLowerCase().endsWith(".jpg");
+									        }
+									    }
+									});
+							fileChooser.showOpenDialog(null);
 						});
 		saveItem.addActionListener(e->{
-							System.out.println("Save");
+							JFileChooser fileChooser = new JFileChooser();
+							fileChooser.setCurrentDirectory(new File("./files"));
+							fileChooser.showSaveDialog(null);
 						});
 		exitItem.addActionListener(e->{
 							System.exit(0);
