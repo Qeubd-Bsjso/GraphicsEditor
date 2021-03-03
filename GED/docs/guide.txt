@@ -1,1 +1,24 @@
-I changes this now.
+In the graphics editor , you go to the left side and click on the file .
+
+
+Going to the file , you will see three buttons in which New , Load , Save , Exit .
+
+New - Create a new blank file in this .
+
+Open - open an existing file on the computer.
+
+Save - Save changes to the currently open file.
+
+Save as - SAVE a new new file with a desired file name and to desired location on the computers Hard drive.
+
+Close - Close the current open file.
+
+Exit - exit the current GeD.
+
+
+In the left side , you can use Paint , Eraser tool etc.
+
+
+Paint tool - A painting tool is a tool or function in a graphics editing . it is used in image by adding paint or filling the areas with color.
+
+Eraser - The eraser tool is an image editing tool used to change the opacity.
