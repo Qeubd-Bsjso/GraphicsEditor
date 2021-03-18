@@ -8,7 +8,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileFilter;
 
+@SuppressWarnings("serial")
 public class MenuBar extends JMenuBar implements ActionListener{
+	Canvas canvas;
 	JMenu fileMenu;
 	JMenu editMenu;
 	JMenu insertMenu;
@@ -35,9 +37,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	//help menu
 	JMenuItem userGuideItem;
 	JMenuItem aboutGeDItem;
-	MenuBar(){
-		this.setFocusable(false);
-		
+	public MenuBar(){
+		//this.setFocusable(false);
 		// creating  menus
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
@@ -174,6 +175,9 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		this.add(helpMenu);
 	}
 	
+	public void bindCanvas(Canvas c) {
+		canvas = c;
+	}
 	public void actionPerformed(ActionEvent e){
 		
 	}
