@@ -1,7 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,7 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileFilter;
 
 @SuppressWarnings("serial")
-public class MenuBar extends JMenuBar implements ActionListener{
+public class MenuBar extends JMenuBar {
 	Canvas canvas;
 	JMenu fileMenu;
 	JMenu editMenu;
@@ -62,7 +67,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
 							System.out.println("New");
 						});
 		loadItem.addActionListener(e->{
-							JFileChooser fileChooser = new JFileChooser();
+							JFileChooser fileChooser = new JFileChooser("Choose a .jpg image");
 							fileChooser.setCurrentDirectory(new File("./files"));
 							fileChooser.setFileFilter(new FileFilter() {
 									    public String getDescription() {
@@ -77,12 +82,51 @@ public class MenuBar extends JMenuBar implements ActionListener{
 									        }
 									    }
 									});
-							fileChooser.showOpenDialog(null);
-						});
+							int response = fileChooser.showOpenDialog(null);
+							BufferedImage im = null;
+							if(response == JFileChooser.APPROVE_OPTION) {
+								try {
+									File file = fileChooser.getSelectedFile();
+									im = ImageIO.read(file); 
+									canvas.loadImage(im);
+								}
+								catch(IOException e1){
+									e1.printStackTrace();
+								}
+							}
+							
+					});
 		saveItem.addActionListener(e->{
-							JFileChooser fileChooser = new JFileChooser();
-							fileChooser.setCurrentDirectory(new File("./files"));
-							fileChooser.showSaveDialog(null);
+			JFileChooser fileChooser = new JFileChooser("Save Image");
+			fileChooser.setCurrentDirectory(new File("./files"));
+			fileChooser.setFileFilter(new FileFilter() {
+					    public String getDescription() {
+					        return "jpg fiels (*.jpg)";
+					    }
+					 
+					    public boolean accept(File f) {
+					        if (f.isDirectory()) {
+					            return true;
+					        } else {
+					            return f.getName().toLowerCase().endsWith(".jpg");
+					        }
+					    }
+					});
+			int response = fileChooser.showSaveDialog(null);
+			if(response == JFileChooser.APPROVE_OPTION) {
+				File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+				if(file != null) {
+					String name = file.getName();
+				    String extension = name.substring(1+name.lastIndexOf(".")).toLowerCase();
+				    try {
+						ImageIO.write(canvas.getSaveImage(), extension, file);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+			
 						});
 		exitItem.addActionListener(e->{
 							System.exit(0);
@@ -178,8 +222,5 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	public void bindCanvas(Canvas c) {
 		canvas = c;
 	}
-	public void actionPerformed(ActionEvent e){
 		
-	}
-	
 }

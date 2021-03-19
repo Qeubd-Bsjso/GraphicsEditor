@@ -7,14 +7,21 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
-public class OptionPlate extends JPanel implements ActionListener{
+public class OptionPlate extends JPanel{
 	Canvas canvas;
 	JButton pen;
 	int penSize;
@@ -47,8 +54,35 @@ public class OptionPlate extends JPanel implements ActionListener{
 		pen.setPreferredSize(new Dimension(30,30));
 		pen.setFocusable(false);
 		pen.setToolTipText("Pen");
-		pen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		pen.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
+                    JFrame frame = new JFrame("Pen Size");
+                    JPanel sizePanel = new JPanel();
+                    JSlider slider = new JSlider(1,50,penSize);
+                    slider.setPaintTicks(true);
+                    slider.setMinorTickSpacing(3);
+            		slider.setPaintTrack(true);
+            		slider.setMajorTickSpacing(49);
+            		slider.setPaintLabels(true);
+            		slider.setPaintLabels(true);
+                    slider.addChangeListener(new ChangeListener() {
+						@Override
+						public void stateChanged(ChangeEvent arg0) {
+							// TODO Auto-generated method stub
+							penSize = slider.getValue();
+							canvas.setCursor(pencilCursor);
+							value = 1;
+						}
+                    });
+                    sizePanel.add(slider);
+                    frame.add(sizePanel);
+                    frame.setResizable(false);
+                    frame.pack();
+                    //frame.setLocationRelativeTo(pen);
+                    frame.setLocation(pen.getLocationOnScreen().x,pen.getLocationOnScreen().y+50);
+                    frame.setVisible(true);
+                 }
 				value = 1;
 				canvas.setCursor(pencilCursor);
 			}
@@ -59,8 +93,85 @@ public class OptionPlate extends JPanel implements ActionListener{
 		eraser.setPreferredSize(new Dimension(30,30));
 		eraser.setFocusable(false);
 		eraser.setToolTipText("Eraser");
-		eraser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		eraser.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
+                    JFrame frame = new JFrame("Eraser Size");
+                    JPanel sizePanel = new JPanel();
+                    JSlider slider = new JSlider(5,50,eraserSize);
+                    slider.setPaintTicks(true);
+                    slider.setMinorTickSpacing(3);
+            		slider.setPaintTrack(true);
+            		slider.setMajorTickSpacing(5);
+                    slider.addChangeListener(new ChangeListener() {
+						@Override
+						public void stateChanged(ChangeEvent arg0) {
+							// TODO Auto-generated method stub
+							eraserSize = slider.getValue();
+							Toolkit toolkit = Toolkit.getDefaultToolkit();
+							if(eraserSize<10) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser1.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<15) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser2.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<20) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser3.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<25) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser4.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<30)	{
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser5.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<35) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser6.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<40) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser7.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else if(eraserSize<45) {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser8.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+							else {
+								Image eraserCursorImage = toolkit.getImage("images/cursors/eraser9.png");
+								eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
+								canvas.setCursor(eraserCursor);
+								value = 2;
+							}
+						}
+                    });
+                    sizePanel.add(slider);
+                    frame.add(sizePanel);
+                    frame.setResizable(false);
+                    frame.pack();
+                    frame.setLocation(eraser.getLocationOnScreen().x,eraser.getLocationOnScreen().y+50);
+                    frame.setVisible(true);
+                 }
 				value = 2;
 				canvas.setCursor(eraserCursor);
 			}
@@ -110,13 +221,10 @@ public class OptionPlate extends JPanel implements ActionListener{
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image pencilCursorImage = toolkit.getImage("images/cursors/pencil.png");
-		pencilCursor = toolkit.createCustomCursor(pencilCursorImage, new Point(0,10), "pencil cursor");
-		Image eraserCursorImage = toolkit.getImage("images/cursors/eraser.png");
-		eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(8,8), "pencil cursor");
+		pencilCursor = toolkit.createCustomCursor(pencilCursorImage, new Point(0,10), "pen cursor");
+		Image eraserCursorImage = toolkit.getImage("images/cursors/eraser1.png");
+		eraserCursor = toolkit.createCustomCursor(eraserCursorImage, new Point(eraserSize/2,eraserSize/2), "eraser cursor");
 
-	}
-	public void actionPerformed(ActionEvent e) {
-		
 	}
 	
 	public void bindCanvas(Canvas c) {
@@ -133,6 +241,11 @@ public class OptionPlate extends JPanel implements ActionListener{
 	public int getEraserSize() {
 		return eraserSize;
 	}
+	
+	public int getPenSize() {
+		return penSize;
+	}
+	
 	public Color currentColor() {
 		return foregroundColor;
 	}

@@ -1,7 +1,9 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -9,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
@@ -40,15 +43,38 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		optionPlate = p;
 	}
 	
+	public void createNewFile() {
+		img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+	    graphics = img.createGraphics();
+	    graphics.setColor(Color.white);
+	    graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+	    graphics.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+	    this.repaint();
+	}
+	
+	public BufferedImage getSaveImage() {
+		return this.img;
+	}
+	
+	public void loadImage(BufferedImage i) { 
+		img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+	    graphics = img.createGraphics();
+	    graphics.setColor(Color.white);
+	    graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+	    graphics.drawImage(i, 0, 0, this.getWidth(), this.getHeight(), null);
+	    this.repaint();
+	}
+	
 	public void writeWithPen(int a,int b) {
 		graphics.setColor(optionPlate.currentColor());
+		graphics.setStroke(new BasicStroke(optionPlate.getPenSize(),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 		graphics.drawLine(mousePointerX, mousePointerY, a, b);
 		this.repaint();
 	}
 	
 	public void erase() {
 		graphics.setColor(Color.white);
-		graphics.fillRect(mousePointerX-optionPlate.getEraserSize(), mousePointerY-optionPlate.getEraserSize(),2*optionPlate.getEraserSize(), 2*optionPlate.getEraserSize() );
+		graphics.fillRect(mousePointerX-optionPlate.getEraserSize()/2, mousePointerY-optionPlate.getEraserSize()/2,optionPlate.getEraserSize(), optionPlate.getEraserSize() );
 		this.repaint();
 	}
 	
@@ -68,19 +94,33 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	
 	public void mouseClicked(MouseEvent e){
 		// button is clicked
-		System.out.println("Clicked");
+		switch(optionPlate.getTool()) {
+		case 1: int a = e.getX();
+				int b = e.getY();
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+					writeWithPen(a,b);
+				}
+				mousePointerX = a;
+				mousePointerY = b;
+				break;
+		case 2:	mousePointerX = e.getX();
+				mousePointerY = e.getY();
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+					erase();
+				}
+				break;
+		}
 	}
 	
 	public void mousePressed(MouseEvent e){
 		//when a mouse button is pressed
-		System.out.println("Pressed");
+	
 	}
 	
 	public void mouseReleased(MouseEvent e){
 		//mouse button is released
-		System.out.println("Released");
 		switch(optionPlate.getTool()) {
-		case 2: optionPlate.resetTool();
+		case 3: optionPlate.resetTool();
 				break;
 		}
 	}
@@ -89,6 +129,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		//when mouse enters an area 
 		mousePointerX=e.getX();
 		mousePointerY=e.getY();
+		bottomBar.setCoordinates(mousePointerX,mousePointerY);
 	}
 	
 	public void mouseExited(MouseEvent e){
