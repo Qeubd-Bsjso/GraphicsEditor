@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -11,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 import javax.swing.SwingUtilities;
@@ -23,10 +20,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	private int mousePointerY;
 	private BottomBar bottomBar;
 	private OptionPlate optionPlate;
-	BufferedImage img;
-	Graphics2D  graphics;
-	double width ,height;
-	Canvas(){
+	private BufferedImage img;
+	private Graphics2D  graphics;
+	public Canvas(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.setVisible(true);

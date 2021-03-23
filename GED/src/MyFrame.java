@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,8 +23,9 @@ public class MyFrame extends JFrame {
 		this.setSize(800,600);
 		//exit program on close operation
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setMinimumSize(new Dimension(300,300));
 		this.setLocationRelativeTo(null);	
-		this.setLayout(new BorderLayout(1,1));
+		this.setLayout(new BorderLayout());
 		
 		 
 		ImageIcon icon = new ImageIcon("images/logo.png");
@@ -37,7 +39,7 @@ public class MyFrame extends JFrame {
 		options = new OptionPlate();
 		
 		canvasHolder.setLayout(new BorderLayout(20,20));
-		canvasHolder.setBackground(new Color(0xc0c0c0));
+		canvasHolder.setBackground(new Color(0x707070));
 		canvasHolder.setOpaque(true);
 		canvasHolder.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		canvasHolder.add(canvas,BorderLayout.CENTER);

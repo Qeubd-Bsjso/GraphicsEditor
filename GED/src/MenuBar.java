@@ -1,11 +1,7 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -64,7 +60,7 @@ public class MenuBar extends JMenuBar {
 
 		// Setting Workings for the menuItems for file menu 
 		newItem.addActionListener(e->{
-							System.out.println("New");
+							canvas.createNewFile();
 						});
 		loadItem.addActionListener(e->{
 							JFileChooser fileChooser = new JFileChooser("Choose a .jpg image");

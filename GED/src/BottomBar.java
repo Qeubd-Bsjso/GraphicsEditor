@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class BottomBar extends JPanel{
-	JLabel label;
+	private JLabel label;
 	BottomBar (){
 		this.setBackground(new Color(0x555555));
 		this.setPreferredSize(new Dimension(50,25));
