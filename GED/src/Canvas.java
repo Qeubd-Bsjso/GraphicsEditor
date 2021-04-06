@@ -1,36 +1,37 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
-import javax.swing.Scrollable;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
-public class Canvas extends JPanel implements MouseListener , MouseMotionListener , Scrollable, ComponentListener{
+public class Canvas extends JPanel implements MouseListener , MouseMotionListener {
 	private int mousePointerX;
 	private int mousePointerY;
+	
 	private BottomBar bottomBar;
 	private OptionPlate optionPlate;
+	private ColorPalette palette;
+	
 	private BufferedImage img;
 	private Graphics2D  graphics;
+	private ArrayList <BufferedImage> objects;
 	public Canvas(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.setVisible(true);
-		this.addComponentListener(this);
 		mousePointerX=-1;
 		mousePointerY=-1;
-		img = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
+		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
 	    graphics = img.createGraphics();
+	    objects = new ArrayList<BufferedImage>();
 	}
 	public void bindBottomBar(BottomBar b) {
 		bottomBar = b;
@@ -38,13 +39,13 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	public void bindOptionPlate(OptionPlate p) {
 		optionPlate = p;
 	}
+	public void bindColorPalette(ColorPalette p) {
+		palette = p;
+	}
 	
 	public void createNewFile() {
-		img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-	    graphics = img.createGraphics();
-	    graphics.setColor(Color.white);
-	    graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-	    graphics.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+		graphics = img.createGraphics();
 	    this.repaint();
 	}
 	
@@ -53,31 +54,36 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void loadImage(BufferedImage i) { 
-		img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
 	    graphics = img.createGraphics();
-	    graphics.setColor(Color.white);
-	    graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-	    graphics.drawImage(i, 0, 0, this.getWidth(), this.getHeight(), null);
+	    graphics.drawImage(i, 0, 0, 1200, 600, null);
 	    this.repaint();
+	}
+
+	private int canvasToImage(int x) {
+		return x*1200/this.getWidth();
 	}
 	
 	public void writeWithPen(int a,int b) {
-		graphics.setColor(optionPlate.currentColor());
-		graphics.setStroke(new BasicStroke(optionPlate.getPenSize(),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
-		graphics.drawLine(mousePointerX, mousePointerY, a, b);
+		graphics.setColor(palette.getPrimaryColor());
+		graphics.setStroke(new BasicStroke(canvasToImage(optionPlate.getPenSize()),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+		graphics.drawLine(canvasToImage(mousePointerX), canvasToImage(mousePointerY), canvasToImage(a), canvasToImage(b));
 		this.repaint();
 	}
 	
 	public void erase() {
 		graphics.setColor(Color.white);
-		graphics.fillRect(mousePointerX-optionPlate.getEraserSize()/2, mousePointerY-optionPlate.getEraserSize()/2,optionPlate.getEraserSize(), optionPlate.getEraserSize() );
+		graphics.fillRect(canvasToImage(mousePointerX-optionPlate.getEraserSize()/2),canvasToImage(mousePointerY-optionPlate.getEraserSize()/2),canvasToImage(optionPlate.getEraserSize()), canvasToImage(optionPlate.getEraserSize()));
 		this.repaint();
 	}
 	
 	public void paintComponent(Graphics g_temp) {
 		super.paintComponent(g_temp);
 		Graphics2D g = (Graphics2D) g_temp;
-		g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
+		g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+		for(BufferedImage i : objects) {
+			g.drawImage(i,0,0,this.getWidth(),this.getHeight(),null);
+		}
 		g.dispose();
 	}
 	
@@ -104,6 +110,8 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
 					erase();
 				}
+				break;
+		case 3:
 				break;
 		}
 	}
@@ -153,57 +161,10 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 					erase();
 				}
 				break;
+		case 3:
+				break;
 		}
 		bottomBar.setCoordinates(mousePointerX,mousePointerY);
 		
 	}
-	@Override
-	public Dimension getPreferredScrollableViewportSize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int getScrollableBlockIncrement(Rectangle arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public boolean getScrollableTracksViewportHeight() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean getScrollableTracksViewportWidth() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public int getScrollableUnitIncrement(Rectangle arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void componentResized(ComponentEvent e) {
-		BufferedImage resizedImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-	    graphics = resizedImage.createGraphics();
-	    graphics.setColor(Color.white);
-	    graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-	    graphics.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
-	    img = resizedImage;
-	    this.repaint();
-    }
-	public void componentMoved(ComponentEvent e) {
-        
-    }
-	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

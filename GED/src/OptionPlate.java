@@ -13,8 +13,9 @@ import javax.swing.JPanel;
 public class OptionPlate extends JPanel{
 	Canvas canvas;
 	
-	Pen pen;
+	JLabel selectTool;
 	
+	Pen pen;
 	
 	Eraser eraser;
 	
@@ -29,7 +30,7 @@ public class OptionPlate extends JPanel{
 	Cursor pencilCursor;
 	Cursor eraserCursor;
 	OptionPlate(){
-		this.setPreferredSize(new Dimension(80,100));
+		this.setPreferredSize(new Dimension(80,200));
 		this.setBackground(new Color(50,50,50));
 		this.setOpaque(true);
 		this.setBorder(BorderFactory.createEmptyBorder(10, 2, 10, 2));
@@ -38,6 +39,17 @@ public class OptionPlate extends JPanel{
 		value = 0;
 		
 		foregroundColor = Color.black;
+		
+		selectTool = new JLabel(new ImageIcon("images/options/select.png"));
+		selectTool.setPreferredSize(new Dimension(30,30));
+		selectTool.setFocusable(false);
+		selectTool.setToolTipText("Select");
+		selectTool.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				value = 0;
+				canvas.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+		});
 		
 		pen = new Pen();
 		pen.bindOptionPlate(this);
@@ -79,6 +91,7 @@ public class OptionPlate extends JPanel{
 			}
 		});
 		
+		this.add(selectTool);
 		this.add(pen);
 		this.add(eraser);
 		this.add(line);
