@@ -1,13 +1,11 @@
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,28 +19,34 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
-public class Pen extends JLabel implements MouseListener , ColorChangeListener{
-	private int penSize;
+public class Rectangle extends JLabel implements MouseListener , ColorChangeListener{
+	private int lineWidth;
 	private Canvas canvas;
 	private ColorPalette palette;
 	private OptionPlate options;
 	private Cursor cursor;
+	private ColorPalette pt;
 	private boolean selected;
+	
 	private SizeSlider sizeSlider;
 	
-	public Pen(){
-		this.setIcon(new ImageIcon("images/options/pen.png"));
+	public Rectangle(){
+		this.setIcon(new ImageIcon("images/options/rectangle.png"));
 		selected = false;
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(30,30));
 		this.setFocusable(false);
-		this.setToolTipText("Pen");
+		this.setToolTipText("Rectangle");
 		this.addMouseListener(this);
-		this.penSize = 5;
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image pencilCursorImage = toolkit.getImage("images/cursors/pencil.png");
-		cursor = toolkit.createCustomCursor(pencilCursorImage, new Point(0,19), "pen cursor");
+		this.lineWidth = 5;
+		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		sizeSlider = null;
+		
+		pt = new ColorPalette();
+		pt.setAlpha(0);
+		pt.setColorPointer(1);
+		
+		pt.addColorChangerListener(this);
 	}
 	
 	public void select() {
@@ -74,9 +78,14 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 		palette.addColorChangerListener(this);
 	}
 	
-	public int getPenSize() {
-		return this.penSize;
+	public int getLineWidth() {
+		return this.lineWidth;
 	}
+	
+	public Color getFillColor() {
+		return pt.getPrimaryColor();
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -98,7 +107,7 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 		if (e.getButton() == MouseEvent.BUTTON3) {
             sizeSlider = new SizeSlider();
          }
-		options.setValue(1);
+		options.setValue(4);
 		canvas.setCursor(cursor);
 		options.unselectAll();
 		this.select();
@@ -112,30 +121,33 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 	private class SizeSlider extends JFrame{
 		JPanel panel;
 		JSlider slider;
-		JLabel label1;
-		JLabel label2;
+		JLabel label;
 		public SizeSlider() {
-			label1 = new JLabel();
-			label2 = new JLabel() {
+			this.setTitle("Rectangle");
+			label = new JLabel() {
 	            @Override
 	            protected void paintComponent(Graphics grphcs) {
 	                super.paintComponent(grphcs);
 	                Graphics2D g2d = (Graphics2D) grphcs;
 	                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	                g2d.setColor(pt.getPrimaryColor());
+	                g2d.setStroke(new BasicStroke(lineWidth,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+	                g2d.fillRect(30,30,240,240);
 	                g2d.setColor(palette.getPrimaryColor());
-	                g2d.fillOval(25-penSize/2,25-penSize/2,penSize,penSize);
+	                g2d.setStroke(new BasicStroke(lineWidth,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+	                g2d.drawRect(30,30,240,240);
 	            }
 
 	            @Override
 	            public Dimension getPreferredSize() {
-	                return new Dimension(50, 50);
+	                return new Dimension(300, 300);
 	            }
 	        };
-	        label2.setBackground(new Color(50,50,50));
+	        label.setBackground(new Color(50,50,50));
 			panel = new JPanel();
 			panel.setLayout(new BorderLayout(10,10));
 			panel.setBackground(new Color(50,50,50));
-            slider = new JSlider(1,50,penSize);
+            slider = new JSlider(1,50,lineWidth);
             slider.setBackground(new Color(50,50,50));
             slider.setForeground(Color.red);
             slider.setFocusable(false);
@@ -149,32 +161,31 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
 					// TODO Auto-generated method stub
-					penSize = slider.getValue();
+					lineWidth = slider.getValue();
 					canvas.setCursor(cursor);
-					options.setValue(1);
+					options.setValue(4);
 					options.unselectAll();
-					Pen.this.select();
-					label2.repaint();
+					Rectangle.this.select();
+					label.repaint();
 				}
             });
-    		label1.setIcon(new ImageIcon("images/options/penLogo.png"));
-    		panel.add(label1,BorderLayout.WEST);
-    		panel.add(label2,BorderLayout.EAST);
+    		panel.add(label,BorderLayout.EAST);
+    		panel.add(pt,BorderLayout.WEST);
             panel.add(slider,BorderLayout.SOUTH);
             panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
             this.add(panel);
             this.setResizable(false);
             this.pack();
-            this.setLocation(Pen.this.getLocationOnScreen().x,Pen.this.getLocationOnScreen().y+50);
+            this.setLocation(Rectangle.this.getLocationOnScreen().x,Rectangle.this.getLocationOnScreen().y+50);
             this.setVisible(true);
 		}
 	}
 
 	@Override
 	public void colorChanged() {
-		// TODO Auto-generated method stub
-		if(sizeSlider != null)
-			sizeSlider.label2.repaint();
+		if(sizeSlider != null) {
+			sizeSlider.label.repaint();
+		}
 	}
 	
 }

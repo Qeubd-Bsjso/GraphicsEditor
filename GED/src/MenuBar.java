@@ -1,3 +1,8 @@
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,7 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
@@ -25,8 +30,6 @@ public class MenuBar extends JMenuBar {
 	JMenuItem exitItem;
 	
 	// edit menu
-	JMenuItem undoItem;
-	JMenuItem redoItem;
 	JMenuItem cutItem;
 	JMenuItem copyItem;
 	JMenuItem pasteItem;
@@ -50,7 +53,7 @@ public class MenuBar extends JMenuBar {
 		fileMenu.setMnemonic(KeyEvent.VK_F);	//Alt+F
 		editMenu.setMnemonic(KeyEvent.VK_E);	//Alt+E
 		helpMenu.setMnemonic(KeyEvent.VK_H);	//Alt+H
-		
+		 
 		// creating items for file menu
 		newItem = new JMenuItem("New");
 		loadItem = new JMenuItem("Load");
@@ -63,21 +66,9 @@ public class MenuBar extends JMenuBar {
 							canvas.createNewFile();
 						});
 		loadItem.addActionListener(e->{
-							JFileChooser fileChooser = new JFileChooser("Choose a .jpg image");
+							JFileChooser fileChooser = new JFileChooser("Choose a .png image");
 							fileChooser.setCurrentDirectory(new File("./files"));
-							fileChooser.setFileFilter(new FileFilter() {
-									    public String getDescription() {
-									        return "jpg fiels (*.jpg)";
-									    }
-									 
-									    public boolean accept(File f) {
-									        if (f.isDirectory()) {
-									            return true;
-									        } else {
-									            return f.getName().toLowerCase().endsWith(".jpg");
-									        }
-									    }
-									});
+							fileChooser.setFileFilter(new FileNameExtensionFilter("*.png", "png"));
 							int response = fileChooser.showOpenDialog(null);
 							BufferedImage im = null;
 							if(response == JFileChooser.APPROVE_OPTION) {
@@ -93,42 +84,30 @@ public class MenuBar extends JMenuBar {
 							
 					});
 		saveItem.addActionListener(e->{
-			JFileChooser fileChooser = new JFileChooser("Save Image");
-			fileChooser.setCurrentDirectory(new File("./files"));
-			fileChooser.setFileFilter(new FileFilter() {
-					    public String getDescription() {
-					        return "jpg fiels (*.jpg)";
-					    }
-					 
-					    public boolean accept(File f) {
-					        if (f.isDirectory()) {
-					            return true;
-					        } else {
-					            return f.getName().toLowerCase().endsWith(".jpg");
-					        }
-					    }
-					});
-			int response = fileChooser.showSaveDialog(null);
-			if(response == JFileChooser.APPROVE_OPTION) {
-				File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-				if(file != null) {
-					String name = file.getName();
-				    String extension = name.substring(1+name.lastIndexOf(".")).toLowerCase();
-				    try {
-						ImageIO.write(canvas.getSaveImage(), extension, file);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}
-			
-						});
+						JFileChooser fileChooser = new JFileChooser("Save Image");
+						fileChooser.setCurrentDirectory(new File("./files"));
+						fileChooser.setFileFilter(new FileNameExtensionFilter("*.png", "png"));
+						int response = fileChooser.showSaveDialog(null);
+						if(response == JFileChooser.APPROVE_OPTION) {
+							File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+							if(file != null) {
+								String name = file.getName();
+							    String extension = name.substring(1+name.lastIndexOf(".")).toLowerCase();
+							    try {
+									ImageIO.write(canvas.getSaveImage(), extension, file);
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}  catch (HeadlessException e2) {
+								    e2.printStackTrace();
+								} 
+							}
+						}
+				});
 		exitItem.addActionListener(e->{
 							System.exit(0);
 						});
 		clearItem.addActionListener(e->{
-							System.out.println("Clear");
+							canvas.clear();
 						});
 		
 			
@@ -146,32 +125,23 @@ public class MenuBar extends JMenuBar {
 		fileMenu.add(exitItem);
 		
 		// creating items for edit menu
-		undoItem = new JMenuItem("Undo");
-		redoItem = new JMenuItem("Redo");
 		cutItem = new JMenuItem("Cut");
 		copyItem = new JMenuItem("Copy");
 		pasteItem = new JMenuItem("Paste");
 		
 		// Setting working for Edit menu Items
-		undoItem.addActionListener(e->{
-							System.out.println("Undo");
-						});
-		redoItem.addActionListener(e->{
-							System.out.println("Redo");
-						});
 		cutItem.addActionListener(e->{
 							System.out.println("Cut");
 						});
 		copyItem.addActionListener(e->{
-							System.out.println("Copy");
+							System.out.println("Copy");						
+					        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new ImageTransferable(canvas.getSaveImage()),null);					        
 						});
 		pasteItem.addActionListener(e->{
 							System.out.println("Paste");
 						});
 		
 		// adding items to Edit menu
-		editMenu.add(undoItem);
-		editMenu.add(redoItem);
 		editMenu.add(cutItem);
 		editMenu.add(copyItem);
 		editMenu.add(pasteItem);
@@ -219,4 +189,30 @@ public class MenuBar extends JMenuBar {
 		canvas = c;
 	}
 		
+	static final class ImageTransferable implements Transferable{
+	    final BufferedImage image;
+
+	    public ImageTransferable(final BufferedImage image) {
+	        this.image = image;
+	    }
+
+	    @Override
+	    public DataFlavor[] getTransferDataFlavors() {
+	        return new DataFlavor[] {DataFlavor.imageFlavor};
+	    }
+
+	    @Override
+	    public boolean isDataFlavorSupported(final DataFlavor flavor) {
+	        return DataFlavor.imageFlavor.equals(flavor);
+	    }
+
+	    @Override
+	    public Object getTransferData(final DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+	        if (isDataFlavorSupported(flavor)) {
+	            return image;
+	        }
+	        throw new UnsupportedFlavorException(flavor);
+	    }
+	};
+	
 }

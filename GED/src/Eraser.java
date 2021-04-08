@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -207,6 +209,22 @@ public class Eraser extends JLabel implements MouseListener{
             this.pack();
             this.setLocation(Eraser.this.getLocationOnScreen().x,Eraser.this.getLocationOnScreen().y+50);
             this.setVisible(true);
+            this.addFocusListener(new FocusListener() {
+
+            	private boolean gained = false;
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					// TODO Auto-generated method stub
+					gained = true;
+				}
+
+				@Override
+				public void focusLost(FocusEvent arg0) {
+					// TODO Auto-generated method stub
+					if(gained) {
+						dispose();
+					}
+				}});
 		}
 		
 	}

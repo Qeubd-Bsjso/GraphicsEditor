@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -22,16 +20,26 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	
 	private BufferedImage img;
 	private Graphics2D  graphics;
-	private ArrayList <BufferedImage> objects;
+	
+	private DrawableObject object;
+	
+	private boolean objectCreated ;
+	private boolean objectDrawn;
+	
 	public Canvas(){
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		this.setLayout(null);
 		this.setVisible(true);
 		mousePointerX=-1;
 		mousePointerY=-1;
 		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
 	    graphics = img.createGraphics();
-	    objects = new ArrayList<BufferedImage>();
+	    graphics.setColor(Color.white);
+	    graphics.fillRect(0, 0, 1200, 600);
+	    object = null;
+	    objectCreated = false;
+	    objectDrawn = false;
 	}
 	public void bindBottomBar(BottomBar b) {
 		bottomBar = b;
@@ -50,7 +58,12 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public BufferedImage getSaveImage() {
-		return this.img;
+		return img;
+	}
+	
+	public void clear() {
+		graphics.setColor(Color.white);
+		graphics.fillRect(0, 0, 1200, 600);
 	}
 	
 	public void loadImage(BufferedImage i) { 
@@ -66,7 +79,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	
 	public void writeWithPen(int a,int b) {
 		graphics.setColor(palette.getPrimaryColor());
-		graphics.setStroke(new BasicStroke(canvasToImage(optionPlate.getPenSize()),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+		graphics.setStroke(new BasicStroke(optionPlate.getPenSize(),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 		graphics.drawLine(canvasToImage(mousePointerX), canvasToImage(mousePointerY), canvasToImage(a), canvasToImage(b));
 		this.repaint();
 	}
@@ -80,15 +93,16 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	public void paintComponent(Graphics g_temp) {
 		super.paintComponent(g_temp);
 		Graphics2D g = (Graphics2D) g_temp;
+		g.setPaint(Color.white);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
-		for(BufferedImage i : objects) {
-			g.drawImage(i,0,0,this.getWidth(),this.getHeight(),null);
+		if(object!=null) {
+			g.drawImage(object.image, 0, 0, this.getWidth(), this.getHeight(), null);
 		}
 		g.dispose();
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		mousePointerX=e.getX();
 		mousePointerY=e.getY();
 		bottomBar.setCoordinates(mousePointerX,mousePointerY);
@@ -96,35 +110,78 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	
 	public void mouseClicked(MouseEvent e){
 		// button is clicked
+		int a = e.getX();
+		int b = e.getY();
+		System.out.println(optionPlate.getTool());
 		switch(optionPlate.getTool()) {
-		case 1: int a = e.getX();
-				int b = e.getY();
-				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+		case 1: if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
 					writeWithPen(a,b);
 				}
-				mousePointerX = a;
-				mousePointerY = b;
+				
 				break;
-		case 2:	mousePointerX = e.getX();
-				mousePointerY = e.getY();
-				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+		case 2:	if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
 					erase();
 				}
 				break;
-		case 3:
-				break;
 		}
+		mousePointerX = a;
+		mousePointerY = b;
 	}
 	
 	public void mousePressed(MouseEvent e){
-		//when a mouse button is pressed
-	
+		
+		int a = e.getX();
+		int b = e.getY();
+		switch(optionPlate.getTool()) {
+		case 1: 
+				break;
+		case 2:	
+				break;
+		case 3:	
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
+					object = new DrawableObject("line",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null);
+					this.repaint();
+					objectCreated = true;
+					objectDrawn = false;
+				}
+				break;
+		case 4:
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
+					object = new DrawableObject("rectangle",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor());
+					this.repaint();
+					objectCreated = true;
+					objectDrawn = false;
+				}
+				break;
+		case 5:
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
+					object = new DrawableObject("ellipse",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor());
+					this.repaint();
+					objectCreated = true;
+					objectDrawn = false;
+				}
+				break;
+		}
+		mousePointerX = a;
+		mousePointerY = b;
 	}
 	
 	public void mouseReleased(MouseEvent e){
 		//mouse button is released
 		switch(optionPlate.getTool()) {
-		case 3: optionPlate.resetTool();
+		case 1: 
+				break;
+		case 2:	
+				break;
+		case 3:	
+		case 4:
+		case 5:
+				if(objectDrawn == false && objectCreated ==true) {
+					objectDrawn = true;
+					objectCreated = false;
+					graphics.drawImage(object.image, 0, 0, 1200, 600, null);
+					object = null;
+				}
 				break;
 		}
 	}
@@ -141,29 +198,48 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		mousePointerX=-1;
 		mousePointerY=-1;
 		bottomBar.setCoordinates(mousePointerX,mousePointerY);
+		switch(optionPlate.getTool()) {
+		case 1: 
+				break;
+		case 2:	
+				break;
+		case 3:	
+		case 4:
+		case 5:
+				if(objectDrawn == false && objectCreated == true) {
+					objectDrawn = true;
+					objectCreated = false;
+					graphics.drawImage(object.image, 0, 0, 1200, 600, null);
+					object = null;
+				}
+				break;
+		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int a = e.getX();
+		int b = e.getY();
 		switch(optionPlate.getTool()) {
-		case 1: int a = e.getX();
-				int b = e.getY();
-				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+		case 1: if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
 					writeWithPen(a,b);
 				}
-				mousePointerX = a;
-				mousePointerY = b;
 				break;
-		case 2:	mousePointerX = e.getX();
-				mousePointerY = e.getY();
-				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
+		case 2:	if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1) {
 					erase();
 				}
 				break;
-		case 3:
+		case 3:	
+		case 4:
+		case 5:
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectDrawn == false) {
+					object.updateP2(canvasToImage(a),canvasToImage(b));
+					this.repaint();
+				}
 				break;
 		}
+		mousePointerX = a;
+		mousePointerY = b;
 		bottomBar.setCoordinates(mousePointerX,mousePointerY);
 		
 	}

@@ -1,36 +1,25 @@
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class OptionPlate extends JPanel{
 	Canvas canvas;
-	
-	JLabel selectTool;
+	ColorPalette palette;
 	
 	Pen pen;
-	
 	Eraser eraser;
-	
-	JLabel line;
-	JLabel rectangle;
-	JLabel elipse;
+	Line line;
+	Rectangle rectangle;
+	Ellipse ellipse;
 	
 	int value ;
 	
-	Color foregroundColor;
 	
-	Cursor pencilCursor;
-	Cursor eraserCursor;
 	OptionPlate(){
-		this.setPreferredSize(new Dimension(80,200));
+		this.setPreferredSize(new Dimension(80,180));
 		this.setBackground(new Color(50,50,50));
 		this.setOpaque(true);
 		this.setBorder(BorderFactory.createEmptyBorder(10, 2, 10, 2));
@@ -38,72 +27,45 @@ public class OptionPlate extends JPanel{
 		
 		value = 0;
 		
-		foregroundColor = Color.black;
-		
-		selectTool = new JLabel(new ImageIcon("images/options/select.png"));
-		selectTool.setPreferredSize(new Dimension(30,30));
-		selectTool.setFocusable(false);
-		selectTool.setToolTipText("Select");
-		selectTool.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				value = 0;
-				canvas.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			}
-		});
-		
 		pen = new Pen();
 		pen.bindOptionPlate(this);
 		
 		eraser = new Eraser();
 		eraser.bindOptionPlate(this);
 
-		line = new JLabel(new ImageIcon("images/options/line.png"));
-		line.setPreferredSize(new Dimension(30,30));
-		line.setFocusable(false);
-		line.setToolTipText("Line");
-		line.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				value = 3;
-				canvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-			}
-		});
+		line = new Line();		
+		line.bindOptionPlate(this);
 		
+		rectangle = new Rectangle();		
+		rectangle.bindOptionPlate(this);
 		
-		rectangle = new JLabel(new ImageIcon("images/options/rectangle.png"));
-		rectangle.setPreferredSize(new Dimension(30,30));
-		rectangle.setFocusable(false);
-		rectangle.setToolTipText("Rectangle");
-		rectangle.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				value = 4;
-				canvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-			}
-		});
+		ellipse = new Ellipse();		
+		ellipse.bindOptionPlate(this);
 		
-		elipse = new JLabel(new ImageIcon("images/options/elipse.png"));
-		elipse.setPreferredSize(new Dimension(30,30));
-		elipse.setFocusable(false);
-		elipse.setToolTipText("Elipse");
-		elipse.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				value = 5;
-				canvas.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-			}
-		});
-		
-		this.add(selectTool);
 		this.add(pen);
 		this.add(eraser);
 		this.add(line);
 		this.add(rectangle);
-		this.add(elipse);
+		this.add(ellipse);
 	}
 	
 	public void bindCanvas(Canvas c) {
 		canvas = c;
 		pen.bindCanvas(c);
 		eraser.bindCanvas(c);
+		line.bindCanvas(c);
+		rectangle.bindCanvas(c);
+		ellipse.bindCanvas(c);
 	}
+	
+	public void bindColorPalette(ColorPalette cp) {
+		palette = cp;
+		pen.bindColorPalette(cp);
+		line.bindColorPalette(cp);
+		rectangle.bindColorPalette(cp);
+		ellipse.bindColorPalette(cp);
+	}
+	
 	public int getTool() {
 		return value;
 	}
@@ -119,6 +81,9 @@ public class OptionPlate extends JPanel{
 	public void unselectAll() {
 		pen.unselect();
 		eraser.unselect();
+		line.unselect();
+		rectangle.unselect();
+		ellipse.unselect();
 	}
 	
 	public int getEraserSize() {
@@ -129,7 +94,23 @@ public class OptionPlate extends JPanel{
 		return pen.getPenSize();
 	}
 	
-	public Color currentColor() {
-		return foregroundColor;
+	public int getLineWidth() {
+		return line.getLineWidth();
+	}
+	
+	public int getRectangleLineWidth() {
+		return rectangle.getLineWidth();
+	}
+	
+	public int getEllipseLineWidth() {
+		return ellipse.getLineWidth();
+	}
+	
+	public Color getRectangleFillColor() {
+		return rectangle.getFillColor();
+	}
+	
+	public Color getEllipseFillColor() {
+		return ellipse.getFillColor();
 	}
 }
