@@ -13,7 +13,6 @@ public class GEDSliderUI extends BasicSliderUI{
 	
 	public GEDSliderUI(JSlider b) {
 		super(b);
-		// TODO Auto-generated constructor stub
 	}
 
     @Override

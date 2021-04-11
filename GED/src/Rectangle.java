@@ -39,6 +39,7 @@ public class Rectangle extends JLabel implements MouseListener , ColorChangeList
 		this.setToolTipText("Rectangle");
 		this.addMouseListener(this);
 		this.lineWidth = 5;
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		sizeSlider = null;
 		
@@ -131,7 +132,6 @@ public class Rectangle extends JLabel implements MouseListener , ColorChangeList
 	                Graphics2D g2d = (Graphics2D) grphcs;
 	                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	                g2d.setColor(pt.getPrimaryColor());
-	                g2d.setStroke(new BasicStroke(lineWidth,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 	                g2d.fillRect(30,30,240,240);
 	                g2d.setColor(palette.getPrimaryColor());
 	                g2d.setStroke(new BasicStroke(lineWidth,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
@@ -147,7 +147,7 @@ public class Rectangle extends JLabel implements MouseListener , ColorChangeList
 			panel = new JPanel();
 			panel.setLayout(new BorderLayout(10,10));
 			panel.setBackground(new Color(50,50,50));
-            slider = new JSlider(1,50,lineWidth);
+            slider = new JSlider(0,50,lineWidth);
             slider.setBackground(new Color(50,50,50));
             slider.setForeground(Color.red);
             slider.setFocusable(false);
@@ -155,8 +155,7 @@ public class Rectangle extends JLabel implements MouseListener , ColorChangeList
             slider.setPaintTicks(true);
             slider.setMinorTickSpacing(3);
     		slider.setPaintTrack(true);
-    		slider.setMajorTickSpacing(49);
-    		slider.setPaintLabels(true);
+    		slider.setMajorTickSpacing(50);
     		slider.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent arg0) {

@@ -38,6 +38,7 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 		this.setFocusable(false);
 		this.setToolTipText("Pen");
 		this.addMouseListener(this);
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.penSize = 5;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image pencilCursorImage = toolkit.getImage("images/cursors/pencil.png");

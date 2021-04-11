@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -38,6 +36,7 @@ public class Line extends JLabel implements MouseListener , ColorChangeListener{
 		this.setFocusable(false);
 		this.setToolTipText("Line");
 		this.addMouseListener(this);
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.lineWidth = 5;
 		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		sizeSlider = null;

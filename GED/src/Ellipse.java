@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -41,6 +39,7 @@ public class Ellipse extends JLabel implements MouseListener , ColorChangeListen
 		this.setToolTipText("Ellipse");
 		this.addMouseListener(this);
 		this.lineWidth = 5;
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 		sizeSlider = null;
 		
@@ -125,7 +124,7 @@ public class Ellipse extends JLabel implements MouseListener , ColorChangeListen
 		JSlider slider;
 		JLabel label;
 		public SizeSlider() {
-			this.setTitle("Rectangle");
+			this.setTitle("Ellipse");
 			label = new JLabel() {
 	            @Override
 	            protected void paintComponent(Graphics grphcs) {

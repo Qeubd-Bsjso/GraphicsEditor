@@ -82,6 +82,7 @@ public class MyFrame extends JFrame implements ComponentListener{
 		canvas.bindColorPalette(palette);
 		
 		menuBar.bindCanvas(canvas);
+		menuBar.bindCanvasHolder(canvasHolder);
 		
 		options.bindCanvas(canvas);
 		options.bindColorPalette(palette);

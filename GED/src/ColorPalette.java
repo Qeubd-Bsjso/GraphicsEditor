@@ -6,8 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,7 +42,7 @@ public class ColorPalette extends JPanel{
 	
 	private Border border;
 	
-	private JButton intensity;
+	private JLabel intensity;
 	
 	private int alpha ;
 	
@@ -59,17 +56,16 @@ public class ColorPalette extends JPanel{
 		this.setBorder(BorderFactory.createEmptyBorder(10, 2, 10, 2));
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		intensity = new JButton("Alpha");
+		intensity = new JLabel("Alpha");
 		intensity.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		intensity.setPreferredSize(new Dimension(70,20));
-		intensity.setFocusable(false);
 		intensity.setBackground(new Color(255,0,0,150));
 		intensity.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		intensity.setForeground(Color.white);
-		intensity.addActionListener(new ActionListener() {
+		intensity.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {
 				new IntensitySlider();				
 			}
 			
@@ -79,6 +75,7 @@ public class ColorPalette extends JPanel{
 		myColorsDisplay = new JLabel[total];
 		for(int i=0;i<total;i++) {
 			myColorsDisplay[i] = new JLabel();
+			myColorsDisplay[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
 			myColorsDisplay[i].setPreferredSize(new Dimension(30,30));
 			myColorsDisplay[i].setBackground(myColors[i]);
 			myColorsDisplay[i].setOpaque(true);

@@ -39,6 +39,7 @@ public class Eraser extends JLabel implements MouseListener{
 		this.setFocusable(false);
 		this.setToolTipText("Pen");
 		this.addMouseListener(this);
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.eraserSize = 5;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		cursor = new Cursor[9];
