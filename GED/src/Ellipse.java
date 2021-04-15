@@ -31,7 +31,7 @@ public class Ellipse extends JLabel implements MouseListener , ColorChangeListen
 	private SizeSlider sizeSlider;
 	
 	public Ellipse(){
-		this.setIcon(new ImageIcon("images/options/elipse.png"));
+		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/elipse.png")));
 		selected = false;
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(30,30));

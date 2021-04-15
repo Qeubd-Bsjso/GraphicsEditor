@@ -31,7 +31,7 @@ public class Rectangle extends JLabel implements MouseListener , ColorChangeList
 	private SizeSlider sizeSlider;
 	
 	public Rectangle(){
-		this.setIcon(new ImageIcon("images/options/rectangle.png"));
+		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/rectangle.png")));
 		selected = false;
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(30,30));

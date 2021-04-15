@@ -31,7 +31,7 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 	private SizeSlider sizeSlider;
 	
 	public Pen(){
-		this.setIcon(new ImageIcon("images/options/pen.png"));
+		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/pen.png")));
 		selected = false;
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(30,30));
@@ -39,9 +39,9 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 		this.setToolTipText("Pen");
 		this.addMouseListener(this);
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.penSize = 5;
+		this.penSize = 3;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image pencilCursorImage = toolkit.getImage("images/cursors/pencil.png");
+		Image pencilCursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/pencil.png"));
 		cursor = toolkit.createCustomCursor(pencilCursorImage, new Point(0,19), "pen cursor");
 		sizeSlider = null;
 	}
@@ -158,7 +158,7 @@ public class Pen extends JLabel implements MouseListener , ColorChangeListener{
 					label2.repaint();
 				}
             });
-    		label1.setIcon(new ImageIcon("images/options/penLogo.png"));
+    		label1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/penLogo.png")));
     		panel.add(label1,BorderLayout.WEST);
     		panel.add(label2,BorderLayout.EAST);
             panel.add(slider,BorderLayout.SOUTH);

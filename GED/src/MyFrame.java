@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MyFrame extends JFrame implements ComponentListener{
 	
-	private int canvasBorderPercentage;
 	MenuBar menuBar;
 	Canvas canvas;
 	OptionPlate options;
@@ -24,7 +23,7 @@ public class MyFrame extends JFrame implements ComponentListener{
 	JPanel canvasHolder;
 	JPanel plate;
 	
-	double canvasAspectRatio;
+	private int yDisplacement;
 	
 	MyFrame(){
 		this.setBackground(Color.black);
@@ -39,9 +38,11 @@ public class MyFrame extends JFrame implements ComponentListener{
 		this.setLayout(new BorderLayout());
 		this.addComponentListener(this);
 		
-		canvasBorderPercentage = 2;
 		 
-		ImageIcon icon = new ImageIcon("images/logo.png");
+		yDisplacement = 0;
+		
+		//ImageIcon icon = new ImageIcon("images/logo.png");
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("logo/logo.png"));
 		this.setIconImage(icon.getImage());
 		
 		// creating menu bar , option plate , canvas , bottomBar
@@ -60,14 +61,15 @@ public class MyFrame extends JFrame implements ComponentListener{
 		canvasHolder.addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				canvasBorderPercentage += 3*e.getWheelRotation();
-				if(canvasBorderPercentage >75)
-					canvasBorderPercentage = 75;
-				else if(canvasBorderPercentage < 1)
-					canvasBorderPercentage =1;
-				updateCanvas();
-				
-			}});
+				int val = Math.abs(canvasHolder.getHeight() - canvas.getImgHeight())/2 ;
+				yDisplacement += 20*e.getWheelRotation();
+				if(yDisplacement > val+10)
+					yDisplacement = val + 10;
+				else if(yDisplacement < -val - 10)
+					yDisplacement = -val - 10;
+				updateCanvasScale();
+			}
+		});
 		
 		plate = new JPanel();
 		plate.setPreferredSize(new Dimension(80,100));
@@ -80,12 +82,16 @@ public class MyFrame extends JFrame implements ComponentListener{
 		canvas.bindBottomBar(bottomBar);
 		canvas.bindOptionPlate(options);
 		canvas.bindColorPalette(palette);
+		canvas.bindFrame(this);
 		
 		menuBar.bindCanvas(canvas);
 		menuBar.bindCanvasHolder(canvasHolder);
+		menuBar.bindFrame(this);
 		
 		options.bindCanvas(canvas);
 		options.bindColorPalette(palette);
+		
+		bottomBar.bindFrame(this);
 		
 		// adding menu bar , option plate , canvas , bottomBar 
 		this.add(menuBar,BorderLayout.NORTH);
@@ -94,21 +100,16 @@ public class MyFrame extends JFrame implements ComponentListener{
 		this.add(bottomBar,BorderLayout.SOUTH);
 		
 		this.setVisible(true);
-		
-		canvasAspectRatio = 2;
+	
 	}
 	
-	private void updateCanvas() {
-		if(((double)canvasHolder.getWidth()/canvasHolder.getHeight()) <= canvasAspectRatio) {
-			int width = canvasHolder.getWidth()*(100-canvasBorderPercentage)/100;
-			int height = (int) ((double)width/canvasAspectRatio);
-			canvas.setBounds(canvasHolder.getWidth()*canvasBorderPercentage/200,(Math.abs(canvasHolder.getHeight()-height))/2, width,height );
-		}
-		else {
-			int height = canvasHolder.getHeight()*(100-canvasBorderPercentage)/100;
-			int width = (int) ((double)height*canvasAspectRatio);
-			canvas.setBounds((Math.abs(canvasHolder.getWidth()-width))/2,canvasHolder.getHeight()*canvasBorderPercentage/200, width,height);
-		}
+	public void updateCanvasScale() {
+		int canvasBorderPercentage = bottomBar.getBorderPercentage();
+		double canvasAspectRatio = canvas.getAspectRatio();
+		int width = canvasHolder.getWidth()*(100-canvasBorderPercentage)/100;
+		int height = (int) ((double)width/canvasAspectRatio);
+		canvas.setBounds(canvasHolder.getWidth()*canvasBorderPercentage/200,(canvasHolder.getHeight()-height)/2 + yDisplacement, width,height );
+		bottomBar.setViewportSize(canvas.getWidth(), canvas.getHeight());
 	}
 	
 	@Override
@@ -123,7 +124,12 @@ public class MyFrame extends JFrame implements ComponentListener{
 	}
 	@Override
 	public void componentResized(ComponentEvent arg0) {
-		updateCanvas();
+		int val = Math.abs(canvasHolder.getHeight() - canvas.getImgHeight())/2 ;
+		if(yDisplacement > val+10)
+			yDisplacement = val + 10;
+		else if(yDisplacement < -val - 10)
+			yDisplacement = -val - 10;
+		updateCanvasScale();
 	}
 	@Override
 	public void componentShown(ComponentEvent arg0) {

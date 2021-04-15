@@ -14,10 +14,15 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	private int mousePointerX;
 	private int mousePointerY;
 	
+	private int imgWidth,imgHeight;
+	
 	private BottomBar bottomBar;
 	private OptionPlate optionPlate;
 	private ColorPalette palette;
+	private MyFrame frame;
 	
+	private BufferedImage backgroundImg;
+	private Graphics2D  bggraphics;
 	private BufferedImage img;
 	private Graphics2D  graphics;
 	
@@ -31,18 +36,25 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		this.addMouseMotionListener(this);
 		this.setLayout(null);
 		this.setVisible(true);
+		this.setBackground(new Color(255,255,255));
 		mousePointerX=-1;
 		mousePointerY=-1;
-		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+		imgWidth = 1200;
+		imgHeight = 600;
+		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
 	    graphics = img.createGraphics();
-	    graphics.setColor(Color.white);
-	    graphics.fillRect(0, 0, 1200, 600);
+	    graphics.setBackground(new Color(255,255,255,0));
+	    backgroundImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+	    bggraphics = backgroundImg.createGraphics();
+	    bggraphics.setColor(Color.white);
+	    bggraphics.fillRect(0, 0, imgWidth, imgHeight);
 	    object = null;
 	    objectCreated = false;
 	    objectDrawn = false;
 	}
 	public void bindBottomBar(BottomBar b) {
 		bottomBar = b;
+		bottomBar.setImageSize(imgWidth, imgHeight);
 	}
 	public void bindOptionPlate(OptionPlate p) {
 		optionPlate = p;
@@ -50,31 +62,172 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	public void bindColorPalette(ColorPalette p) {
 		palette = p;
 	}
+	public void bindFrame(MyFrame f) {
+		frame = f;
+	}
 	
-	public void createNewFile() {
-		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+	public void createNewFile(int type,int x,int y) {
+		imgWidth = x;
+		imgHeight = y;
+		backgroundImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		bggraphics = backgroundImg.createGraphics();
+		switch(type) {
+		case 0:
+			//white sheet
+			bggraphics.setColor(Color.white);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			break;
+		case 1:
+			//black sheet
+			bggraphics.setColor(Color.black);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			break;
+		case 2:
+			//wide ruled
+			bggraphics.setColor(Color.white);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0x2030f0));
+			bggraphics.setStroke(new BasicStroke(2,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=100;i<imgHeight;i+=50) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			break;
+		case 3:
+			//graph
+			bggraphics.setColor(Color.white);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0xb81164));
+			bggraphics.setStroke(new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=10;i<imgHeight;i+=10) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			for(int i=10;i<imgWidth;i+=10) {
+				bggraphics.drawLine(i,0 ,i ,imgHeight );
+			}
+			
+			bggraphics.setStroke(new BasicStroke(2,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=50;i<imgHeight;i+=50) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			for(int i=50;i<imgWidth;i+=50) {
+				bggraphics.drawLine(i,0 ,i ,imgHeight );
+			}
+			break;
+		case 4:
+			//dot-grid
+			bggraphics.setColor(Color.white);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0x332323));
+			bggraphics.setStroke(new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND, 1.0f,new float[] {1.0f,20.0f},0.0f));
+			
+			for(int i=20;i<imgHeight;i+=20) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			break;
+		case 5:
+			//lined
+			bggraphics.setColor(Color.white);
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0x203030));
+			bggraphics.setStroke(new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=150;i<imgHeight;i+=40) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			
+			bggraphics.setColor(new Color(0xd43030));
+			bggraphics.setStroke(new BasicStroke(2,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			bggraphics.drawLine(0,110 ,imgWidth ,110 );
+			bggraphics.drawLine(0,105 ,imgWidth ,105 );
+			bggraphics.drawLine(100, 0, 100, imgHeight);
+			bggraphics.drawLine(95, 0, 95, imgHeight);
+			break;
+		case 6:
+			//notebook
+			bggraphics.setColor(new Color(0xded3a0));
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0x203030));
+			bggraphics.setStroke(new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=150;i<imgHeight;i+=40) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			
+			bggraphics.setColor(new Color(0xd43030));
+			bggraphics.setStroke(new BasicStroke(2,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			bggraphics.drawLine(0,110 ,imgWidth ,110 );
+			bggraphics.drawLine(0,105 ,imgWidth ,105 );
+			bggraphics.drawLine(100, 0, 100, imgHeight);
+			bggraphics.drawLine(95, 0, 95, imgHeight);
+			break;
+		case 7:
+			//blueprint
+			bggraphics.setColor(new Color(0x4053e3));
+			bggraphics.fillRect(0, 0, imgWidth, imgHeight);
+			bggraphics.setColor(new Color(0xe6e8f7));
+			bggraphics.setStroke(new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+			
+			for(int i=20;i<imgHeight;i+=20) {
+				bggraphics.drawLine(0,i ,imgWidth ,i );
+			}
+			for(int i=20;i<imgWidth;i+=20) {
+				bggraphics.drawLine(i,0 ,i ,imgHeight );
+			}
+			break;
+		case 8:
+			//transparent
+			
+			break;
+		}
+		
+		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
 		graphics = img.createGraphics();
+		graphics.setBackground(new Color(255,255,255,0));
+		frame.updateCanvasScale();
 	    this.repaint();
+	    bottomBar.setImageSize(imgWidth, imgHeight);
 	}
 	
 	public BufferedImage getSaveImage() {
-		return img;
+		BufferedImage temp = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = temp.createGraphics();
+		g.drawImage(backgroundImg, 0, 0, imgWidth, imgHeight, null);
+		g.drawImage(img, 0, 0, imgWidth, imgHeight, null);
+		return temp;
 	}
 	
 	public void clear() {
-		graphics.setColor(Color.white);
-		graphics.fillRect(0, 0, 1200, 600);
+		graphics.clearRect(0, 0, imgWidth, imgHeight);
+		this.repaint();
 	}
 	
 	public void loadImage(BufferedImage i) { 
-		img = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+		imgWidth = i.getWidth();
+		imgHeight = i.getHeight();
+		bottomBar.setImageSize(imgWidth, imgHeight);
+		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
 	    graphics = img.createGraphics();
-	    graphics.drawImage(i, 0, 0, 1200, 600, null);
+	    graphics.drawImage(i, 0, 0, imgWidth, imgHeight, null);
 	    this.repaint();
 	}
 
 	private int canvasToImage(int x) {
-		return x*1200/this.getWidth();
+		return x*imgWidth/this.getWidth();
+	}
+	
+	public int getImgWidth() {
+		return imgWidth;
+	}
+	
+	public int getImgHeight() {
+		return imgHeight;
+	}
+	
+	public double getAspectRatio() {
+		return (double)imgWidth / imgHeight;
 	}
 	
 	public void writeWithPen(int a,int b) {
@@ -85,16 +238,14 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void erase() {
-		graphics.setColor(Color.white);
-		graphics.fillRect(canvasToImage(mousePointerX-optionPlate.getEraserSize()/2),canvasToImage(mousePointerY-optionPlate.getEraserSize()/2),canvasToImage(optionPlate.getEraserSize()), canvasToImage(optionPlate.getEraserSize()));
+		graphics.clearRect(canvasToImage(mousePointerX-optionPlate.getEraserSize()/2),canvasToImage(mousePointerY-optionPlate.getEraserSize()/2),canvasToImage(optionPlate.getEraserSize()), canvasToImage(optionPlate.getEraserSize()));		
 		this.repaint();
 	}
 	
 	public void paintComponent(Graphics g_temp) {
 		super.paintComponent(g_temp);
 		Graphics2D g = (Graphics2D) g_temp;
-		g.setPaint(Color.white);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.drawImage(backgroundImg, 0, 0, this.getWidth(), this.getHeight(), null);
 		g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
 		if(object!=null) {
 			g.drawImage(object.image, 0, 0, this.getWidth(), this.getHeight(), null);
@@ -129,7 +280,6 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void mousePressed(MouseEvent e){
-		
 		int a = e.getX();
 		int b = e.getY();
 		switch(optionPlate.getTool()) {
@@ -179,7 +329,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				if(objectDrawn == false && objectCreated ==true) {
 					objectDrawn = true;
 					objectCreated = false;
-					graphics.drawImage(object.image, 0, 0, 1200, 600, null);
+					graphics.drawImage(object.image, 0, 0, imgWidth, imgHeight, null);
 					object = null;
 				}
 				break;
@@ -209,7 +359,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				if(objectDrawn == false && objectCreated == true) {
 					objectDrawn = true;
 					objectCreated = false;
-					graphics.drawImage(object.image, 0, 0, 1200, 600, null);
+					graphics.drawImage(object.image, 0, 0, imgWidth, imgHeight, null);
 					object = null;
 				}
 				break;

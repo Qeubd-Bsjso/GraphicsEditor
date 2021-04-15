@@ -29,7 +29,7 @@ public class Line extends JLabel implements MouseListener , ColorChangeListener{
 	private SizeSlider sizeSlider;
 	
 	public Line(){
-		this.setIcon(new ImageIcon("images/options/line.png"));
+		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/line.png")));
 		selected = false;
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(30,30));

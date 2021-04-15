@@ -32,7 +32,7 @@ public class Eraser extends JLabel implements MouseListener{
 	private boolean selected;
 	
 	public Eraser(){
-		this.setIcon(new ImageIcon("images/options/eraser.png"));
+		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/eraser.png")));
 		this.setBackground(Color.green);
 		this.selected = false;
 		this.setPreferredSize(new Dimension(30,30));
@@ -43,23 +43,23 @@ public class Eraser extends JLabel implements MouseListener{
 		this.eraserSize = 5;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		cursor = new Cursor[9];
-		Image cursorImage = toolkit.getImage("images/cursors/eraser1.png");
+		Image cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser1.png"));
 		cursor[0] = toolkit.createCustomCursor(cursorImage, new Point(2,2), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser2.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser2.png"));
 		cursor[1] = toolkit.createCustomCursor(cursorImage, new Point(6,6), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser3.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser3.png"));
 		cursor[2] = toolkit.createCustomCursor(cursorImage, new Point(8,8), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser4.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser4.png"));
 		cursor[3] = toolkit.createCustomCursor(cursorImage, new Point(11,11), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser5.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser5.png"));
 		cursor[4] = toolkit.createCustomCursor(cursorImage, new Point(13,13), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser6.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser6.png"));
 		cursor[5] = toolkit.createCustomCursor(cursorImage, new Point(16,16), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser7.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser7.png"));
 		cursor[6] = toolkit.createCustomCursor(cursorImage, new Point(18,18), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser8.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser8.png"));
 		cursor[7] = toolkit.createCustomCursor(cursorImage, new Point(21,21), "eraser cursor");
-		cursorImage = toolkit.getImage("images/cursors/eraser9.png");
+		cursorImage = toolkit.getImage(getClass().getClassLoader().getResource("cursors/eraser9.png"));
 		cursor[8] = toolkit.createCustomCursor(cursorImage, new Point(23,23), "eraser cursor");
 	}
 	
@@ -200,7 +200,7 @@ public class Eraser extends JLabel implements MouseListener{
 					label2.repaint();
 				}
             });
-    		label1.setIcon(new ImageIcon("images/options/eraserLogo.png"));
+    		label1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("options/eraserLogo.png")));
     		panel.add(label1,BorderLayout.WEST);
     		panel.add(label2,BorderLayout.EAST);
             panel.add(slider,BorderLayout.SOUTH);
