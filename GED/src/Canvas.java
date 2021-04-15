@@ -214,8 +214,11 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	    this.repaint();
 	}
 
-	private int canvasToImage(int x) {
-		return x*imgWidth/this.getWidth();
+	private int canvasToImageWidth(int x) {
+		return (int)((double)x*imgWidth/this.getWidth());
+	}
+	private int canvasToImageHeight(int x) {
+		return x*imgHeight/this.getHeight();
 	}
 	
 	public int getImgWidth() {
@@ -233,12 +236,12 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	public void writeWithPen(int a,int b) {
 		graphics.setColor(palette.getPrimaryColor());
 		graphics.setStroke(new BasicStroke(optionPlate.getPenSize(),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
-		graphics.drawLine(canvasToImage(mousePointerX), canvasToImage(mousePointerY), canvasToImage(a), canvasToImage(b));
+		graphics.drawLine(canvasToImageWidth(mousePointerX), canvasToImageHeight(mousePointerY), canvasToImageWidth(a), canvasToImageHeight(b));
 		this.repaint();
 	}
 	
 	public void erase() {
-		graphics.clearRect(canvasToImage(mousePointerX-optionPlate.getEraserSize()/2),canvasToImage(mousePointerY-optionPlate.getEraserSize()/2),canvasToImage(optionPlate.getEraserSize()), canvasToImage(optionPlate.getEraserSize()));		
+		graphics.clearRect(canvasToImageWidth(mousePointerX-optionPlate.getEraserSize()/2),canvasToImageWidth(mousePointerY-optionPlate.getEraserSize()/2),canvasToImageHeight(optionPlate.getEraserSize()), canvasToImageHeight(optionPlate.getEraserSize()));		
 		this.repaint();
 	}
 	
@@ -289,7 +292,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 3:	
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("line",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null);
+					object = new DrawableObject("line",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null,imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -297,7 +300,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 4:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("rectangle",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor());
+					object = new DrawableObject("rectangle",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -305,7 +308,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 5:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("ellipse",this.getSize(),canvasToImage(a),canvasToImage(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor());
+					object = new DrawableObject("ellipse",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -383,7 +386,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		case 4:
 		case 5:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectDrawn == false) {
-					object.updateP2(canvasToImage(a),canvasToImage(b));
+					object.updateP2(canvasToImageWidth(a),canvasToImageHeight(b));
 					this.repaint();
 				}
 				break;

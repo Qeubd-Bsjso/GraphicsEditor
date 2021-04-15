@@ -14,7 +14,9 @@ public class DrawableObject {
 	public BufferedImage image;
 	private Graphics2D graphics;
 	private Color fillColor;
-	DrawableObject (String s,Dimension d,int x,int y, int w, Color c, Color f ){	
+	private int width;
+	private int height;
+	DrawableObject (String s,Dimension d,int x,int y, int w, Color c, Color f ,int iw,int ih){	
 		if(s == "line")
 			type = 1;
 		else if(s == "rectangle") 
@@ -33,7 +35,10 @@ public class DrawableObject {
 		
 		color = c;
 		
-		image = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+		width = iw;
+		height = ih;
+		
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		graphics = image.createGraphics();
 		graphics.setStroke(strokeStyle);
 		update();
@@ -48,7 +53,7 @@ public class DrawableObject {
 	
 	private void update() {
 		graphics.setBackground(new Color(255,255,255,0));
-		graphics.clearRect(0, 0, 1200, 600);
+		graphics.clearRect(0, 0, width, height);
 		switch(type) {
 		case 1 :
 				line();
