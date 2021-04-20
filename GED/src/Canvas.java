@@ -213,6 +213,105 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	    graphics.drawImage(i, 0, 0, imgWidth, imgHeight, null);
 	    this.repaint();
 	}
+	
+	
+	public void flipVertical() { 
+		BufferedImage tempImg = img;
+		BufferedImage tempBackgroundImg = backgroundImg;
+		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		graphics = img.createGraphics();
+		backgroundImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		bggraphics = backgroundImg.createGraphics();
+		graphics.drawImage(tempImg, 0, imgHeight, imgWidth, -imgHeight, null);
+		bggraphics.drawImage(tempBackgroundImg, 0, imgHeight, imgWidth, -imgHeight, null);
+		this.repaint();
+	}
+	
+	public void flipHorizontal() { 
+		BufferedImage tempImg = img;
+		BufferedImage tempBackgroundImg = backgroundImg;
+		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		graphics = img.createGraphics();
+		backgroundImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
+		bggraphics = backgroundImg.createGraphics();
+		graphics.drawImage(tempImg, imgWidth, 0, -imgWidth, imgHeight, null);
+		bggraphics.drawImage(tempBackgroundImg, imgWidth, 0, -imgWidth, imgHeight, null);
+		this.repaint();
+	}
+	
+	public void rotateRight() { 
+		
+		int newImgWidth = imgHeight;
+		int newImgHeight = imgWidth;
+		
+		BufferedImage tempImg = img;
+		BufferedImage tempBackgroundImg = backgroundImg;
+	
+		img = new BufferedImage(newImgWidth, newImgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = img.createGraphics();
+		backgroundImg = new BufferedImage(newImgWidth, newImgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D bg = backgroundImg.createGraphics();
+		
+		g.translate((newImgWidth-imgWidth)/2, (newImgHeight-imgHeight)/2);
+		bg.translate((newImgWidth-imgWidth)/2, (newImgHeight-imgHeight)/2);
+		
+		g.rotate(Math.toRadians(90), imgWidth/2, imgHeight/2);
+		bg.rotate(Math.toRadians(90), imgWidth/2, imgHeight/2);
+		
+		g.drawRenderedImage(tempImg, null);
+		bg.drawRenderedImage(tempBackgroundImg, null);
+		
+		g.dispose();
+		bg.dispose();
+		
+		graphics = img.createGraphics();
+		bggraphics = backgroundImg.createGraphics();
+		
+		imgWidth = newImgWidth;
+		imgHeight = newImgHeight;
+		
+		bottomBar.setImageSize(imgWidth, imgHeight);
+		
+		frame.updateCanvasScale();
+		this.repaint();
+	}
+	
+	public void rotateLeft() { 
+		
+		int newImgWidth = imgHeight;
+		int newImgHeight = imgWidth;
+		
+		BufferedImage tempImg = img;
+		BufferedImage tempBackgroundImg = backgroundImg;
+	
+		img = new BufferedImage(newImgWidth, newImgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = img.createGraphics();
+		backgroundImg = new BufferedImage(newImgWidth, newImgHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D bg = backgroundImg.createGraphics();
+		
+		g.translate((newImgWidth-imgWidth)/2, (newImgHeight-imgHeight)/2);
+		bg.translate((newImgWidth-imgWidth)/2, (newImgHeight-imgHeight)/2);
+		
+		g.rotate(Math.toRadians(-90), imgWidth/2, imgHeight/2);
+		bg.rotate(Math.toRadians(-90), imgWidth/2, imgHeight/2);
+		
+		g.drawRenderedImage(tempImg, null);
+		bg.drawRenderedImage(tempBackgroundImg, null);
+		
+		g.dispose();
+		bg.dispose();
+		
+		graphics = img.createGraphics();
+		bggraphics = backgroundImg.createGraphics();
+		
+		imgWidth = newImgWidth;
+		imgHeight = newImgHeight;
+		
+		bottomBar.setImageSize(imgWidth, imgHeight);
+		
+		frame.updateCanvasScale();
+		this.repaint();
+	}
 
 	private int canvasToImageWidth(int x) {
 		return (int)((double)x*imgWidth/this.getWidth());
@@ -292,7 +391,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 3:	
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("line",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null,imgWidth,imgHeight);
+					object = new DrawableObject("line",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null,imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -300,7 +399,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 4:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("rectangle",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor(),imgWidth,imgHeight);
+					object = new DrawableObject("rectangle",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -308,7 +407,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 5:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("ellipse",this.getSize(),canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor(),imgWidth,imgHeight);
+					object = new DrawableObject("ellipse",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;

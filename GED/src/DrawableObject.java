@@ -1,6 +1,5 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -16,7 +15,7 @@ public class DrawableObject {
 	private Color fillColor;
 	private int width;
 	private int height;
-	DrawableObject (String s,Dimension d,int x,int y, int w, Color c, Color f ,int iw,int ih){	
+	DrawableObject (String s,int x,int y, int w, Color c, Color f ,int iw,int ih){	
 		if(s == "line")
 			type = 1;
 		else if(s == "rectangle") 

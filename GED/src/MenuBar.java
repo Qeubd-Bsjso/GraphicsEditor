@@ -49,7 +49,7 @@ public class MenuBar extends JPanel{
 	
 	Menu fileMenu;
 	Menu editMenu;
-	Menu insertMenu;
+	Menu transformMenu;
 	Menu helpMenu;
 	
 	// file menu
@@ -65,8 +65,11 @@ public class MenuBar extends JPanel{
 	MenuItem pasteItem;
 	
 	// insert menu
-	MenuItem insertImageItem;
-	MenuItem insertTextItem;
+	MenuItem flipVerticalItem;
+	MenuItem flipHorizontalItem;
+	MenuItem rotateRightItem;
+	MenuItem rotateLeftItem;
+	
 	
 	//help menu
 	MenuItem userGuideItem;
@@ -84,7 +87,7 @@ public class MenuBar extends JPanel{
 				
 		editMenu = new Menu("Edit");
 		
-		insertMenu = new Menu("Insert");
+		transformMenu = new Menu("Transform");
 		
 		helpMenu = new Menu("Help");
 		 
@@ -211,29 +214,50 @@ public class MenuBar extends JPanel{
 		editMenu.addMenuItem(pasteItem);
 		
 		// creating items for insert menu
-		insertImageItem = new MenuItem("Image");
-		insertTextItem = new MenuItem("Text");
+		flipHorizontalItem = new MenuItem("Flip Horizontal");
+		flipVerticalItem = new MenuItem("Flip Vertical");
+		rotateRightItem = new MenuItem("Rotate Right");
+		rotateLeftItem = new MenuItem("Rotate Left");
 		
 		// setting working for items in insert menu
-		insertImageItem.addMouseListener(new MouseAdapter(){
+		flipHorizontalItem.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
-				insertImageItem.setForeground(new Color(0xabffd5));
-				insertImageItem.repaint();
-				System.out.println("Add Image");
+				flipHorizontalItem.setForeground(new Color(0xabffd5));
+				flipHorizontalItem.repaint();
+				canvas.flipHorizontal();
 			}
 		});
 		
-		insertTextItem.addMouseListener(new MouseAdapter(){
+		flipVerticalItem.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
-				insertTextItem.setForeground(new Color(0xabffd5));
-				insertTextItem.repaint();
-				System.out.println("Add Text");
+				flipVerticalItem.setForeground(new Color(0xabffd5));
+				flipVerticalItem.repaint();
+				canvas.flipVertical();
 			}
 		});
+		
+		rotateRightItem.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				rotateRightItem.setForeground(new Color(0xabffd5));
+				rotateRightItem.repaint();
+				canvas.rotateRight();
+			}
+		});
+		
+		rotateLeftItem.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				rotateLeftItem.setForeground(new Color(0xabffd5));
+				rotateLeftItem.repaint();
+				canvas.rotateLeft();
+			}
+		});
+		
 		
 		// Adding items in insert menu
-		insertMenu.addMenuItem(insertImageItem);
-		insertMenu.addMenuItem(insertTextItem);
+		transformMenu.addMenuItem(flipHorizontalItem);
+		transformMenu.addMenuItem(flipVerticalItem);
+		transformMenu.addMenuItem(rotateRightItem);
+		transformMenu.addMenuItem(rotateLeftItem);
 		
 		// creating items for help menu
 		userGuideItem = new MenuItem("User Guide");
@@ -263,7 +287,7 @@ public class MenuBar extends JPanel{
 		// adding items to menu bar 
 		this.add(fileMenu);
 		this.add(editMenu);
-		this.add(insertMenu);
+		this.add(transformMenu);
 		this.add(helpMenu);
 	}
 	
