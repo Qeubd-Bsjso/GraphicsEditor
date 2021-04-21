@@ -1,24 +1,68 @@
-In the graphics editor , you go to the left side and click on the file .
+In the graphics editor , in the top left, we have 4 options in menu bar namely File, Edit, Trasform and Help.
 
 
-Going to the file , you will see three buttons in which New , Load , Save , Exit .
+In the file menu, you will see these buttons : "New , Load , Save ,Save As, Clear, Exit" 
 
-New - Create a new blank file in this .
+These buttons will perform following functions:
 
-Open - open an existing file on the computer.
+New - Create a new file with different background like blank, black, dotted, graphed, notebook etc.
+
+Load - Open an existing file on the computer.
 
 Save - Save changes to the currently open file.
 
 Save as - SAVE a new new file with a desired file name and to desired location on the computers Hard drive.
 
-Close - Close the current open file.
+Clear - Clears the current open file.
 
-Exit - exit the current GeD.
-
-
-In the left side , you can use Paint , Eraser tool etc.
+Exit - Exit the current GeD.
 
 
-Paint tool - A painting tool is a tool or function in a graphics editing . it is used in image by adding paint or filling the areas with color.
+In the Edit menu, you will see three options: Copy and Paste.
+
+Copy: Copy the given graphics.
+
+Paste: Paste the graphics from the clipboard.
+
+
+In the Trasform menu, you will see 4 transformational options: Flip Horizontal, Flip Vertical, Rotate Right and Rotate left.
+
+Flip Horizontal - Flip the graphics in horizontal direction.
+
+Flip Vertical - Flip the graphics in vertical direction.
+ 
+Rotate Right - Rotate the graphics 90 degree to right side.
+
+Rotate Left - Rotate the graphics 90 degree to left side.
+
+
+In the help menu, you will have 2 options: "User Guide , About GED ."
+
+User Guide - Instructions about the execution of different functions of this Graphical editor.
+
+About GED : Discription about the team.
+
+
+
+In the middle, you will see the work area in which you can draw the graphics using different tools.
+
+
+
+In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle, Alpha and Colour Palette and these tools can be resized by right clicking on them.
+
+Pen : The pen is used to draw different shapes using pointing device on the graphics.
 
 Eraser - The eraser tool is an image editing tool used to change the opacity.
+
+Line: Used to draw a line.
+
+Rectangle : Used to draw a rectangle.
+
+Circle: Used to draw a circle.
+
+Alpha: It defines intensity of the graphics.
+
+Colour Palette : has different colours which can be changed by clicking on them.
+
+
+In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
