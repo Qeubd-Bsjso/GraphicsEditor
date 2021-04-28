@@ -99,7 +99,7 @@ In the bottom left, you will see a tool to adjust the dimension of the work area
 
 ```
 ## Screenshot
-![Front page](GED/images/Capture.PNG)
+- ![Front page](GED/images/Capture.PNG)
 
 ## Contributors
 Abhishek Kaundal(185021)
