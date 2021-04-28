@@ -97,8 +97,8 @@ This project can be downloaded in two ways:
    - The command in Git CMD will be:
      - *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
 2. Downloading the zip file directly and unzipping it latter on.
--Zip file can be downloaded by [clicking here](https://github.com/Qeubd-Bsjso/GraphicsEditor/archive/refs/heads/master.zip)
--After downloading this repository needs to be unzipped.
+   -Zip file can be downloaded by [clicking here](https://github.com/Qeubd-Bsjso/GraphicsEditor/archive/refs/heads/master.zip)
+    -After downloading this repository needs to be unzipped.
 
 
 
