@@ -1,3 +1,7 @@
-About GeD
+This application is prepared as a Software Enginnering Project in a team of 3 members namely :
+1. Abhishek Kaundal(185021)
+2. Saurav Sharma(185025)
+3. Shiv Kumar(185033)
+All members are 3rd year (6th semester) BTech students of National Institute of Technology, Hamirpur.
 
 
