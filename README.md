@@ -92,7 +92,12 @@ In the bottom left, you will see a tool to adjust the dimension of the work area
 
 ```
 ##Installation
-This project can be downloaded by [clicking here]( )
+This project can be downloaded in two ways:
+1. Cloning https://github.com/Qeubd-Bsjso/GraphicsEditor.git in Git CMD.
+  -The command in Git CMD will be:
+     *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
+2. Downloading the zip file directly and unzipping it latter on.
+
 
 
 ## Contributors
