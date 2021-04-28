@@ -5,9 +5,11 @@
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
 This software will enable us to manipulate images or models visually on the software window. 
 ```
+## Table of Content
+1. [Installation](#install)
 
 
-
+<a name="install"></a>
 ## Installation
 ```
 This project can be downloaded in two ways:
