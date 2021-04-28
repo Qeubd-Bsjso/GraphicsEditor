@@ -25,8 +25,6 @@ We prefer **Eclipse** IDE for running this project.
 - Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
 - Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
 
-## Window after Running
-![Front page](GED/images/Capture.PNG)
 
 ## Documentation
 *This Graphic Editor Software will have the following features:*
@@ -100,6 +98,8 @@ In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle,
 In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
 
 ```
+## Screenshot
+![Front page](GED/images/Capture.PNG)
 
 ## Contributors
 Abhishek Kaundal(185021)
