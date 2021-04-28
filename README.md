@@ -4,6 +4,7 @@
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
 This software will enable us to manipulate images or models visually on the software window. 
 ```
+
 ## Requirments
 ```
 - Creating several types of geometric objects such as circles, ellipses, rectangles, lines, polygons, and texts associated with them.
@@ -19,6 +20,7 @@ This software will enable us to manipulate images or models visually on the soft
 - A set of 10 clip boards should be provided to which one can copy various types of selected entities (including groups) for future use in pasting these at different places when required. 
 
 ```
+
 ##Installation
 ```
 This project can be downloaded in two ways:
@@ -36,6 +38,7 @@ First of all, we need an IDE(Integrated Development Environment) which support J
 - Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
 - Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
 ```
+
 ## Documentation
 *This Graphic Editor Software will have the following features:*
 ```
