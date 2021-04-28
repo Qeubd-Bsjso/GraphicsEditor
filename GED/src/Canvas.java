@@ -67,6 +67,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void createNewFile(int type,int x,int y) {
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		imgWidth = x;
 		imgHeight = y;
 		backgroundImg = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
@@ -192,6 +195,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public BufferedImage getSaveImage() {
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		BufferedImage temp = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = temp.createGraphics();
 		g.drawImage(backgroundImg, 0, 0, imgWidth, imgHeight, null);
@@ -200,11 +206,17 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void clear() {
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		graphics.clearRect(0, 0, imgWidth, imgHeight);
 		this.repaint();
 	}
 	
 	public void loadImage(BufferedImage i) { 
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		imgWidth = i.getWidth();
 		imgHeight = i.getHeight();
 		bottomBar.setImageSize(imgWidth, imgHeight);
@@ -216,6 +228,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	
 	
 	public void flipVertical() { 
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		BufferedImage tempImg = img;
 		BufferedImage tempBackgroundImg = backgroundImg;
 		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
@@ -228,6 +243,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void flipHorizontal() { 
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		BufferedImage tempImg = img;
 		BufferedImage tempBackgroundImg = backgroundImg;
 		img = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
@@ -240,7 +258,9 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 	}
 	
 	public void rotateRight() { 
-		
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		int newImgWidth = imgHeight;
 		int newImgHeight = imgWidth;
 		
@@ -276,7 +296,10 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		this.repaint();
 	}
 	
-	public void rotateLeft() { 
+	public void rotateLeft() {
+		if(optionPlate.isAddingImage()) {
+			optionPlate.confirmAddingImage();
+		}
 		
 		int newImgWidth = imgHeight;
 		int newImgHeight = imgWidth;
@@ -352,7 +375,15 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		if(object!=null) {
 			g.drawImage(object.image, 0, 0, this.getWidth(), this.getHeight(), null);
 		}
+		if(optionPlate.isAddingImage() == true) {
+			g.drawImage(optionPlate.getAddImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+		}
 		g.dispose();
+	}
+	
+	public void mergeAddingImage() {
+		graphics.drawImage(optionPlate.getAddImage(), 0, 0, imgWidth, imgHeight, null);
+		this.repaint();
 	}
 	
 	public void mouseMoved(MouseEvent e) {
@@ -413,6 +444,12 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 					objectDrawn = false;
 				}
 				break;
+		case 6:
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1 && optionPlate.isAddingImage()) {
+					optionPlate.addImagePressed(canvasToImageWidth(a), canvasToImageHeight(b));
+					this.repaint();
+				}
+				break;
 		}
 		mousePointerX = a;
 		mousePointerY = b;
@@ -433,6 +470,12 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 					objectCreated = false;
 					graphics.drawImage(object.image, 0, 0, imgWidth, imgHeight, null);
 					object = null;
+				}
+				break;
+		case 6:
+				if(optionPlate.isAddingImage()) {
+					optionPlate.addImageReleased();
+					this.repaint();
 				}
 				break;
 		}
@@ -465,6 +508,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 					object = null;
 				}
 				break;
+		
 		}
 	}
 
@@ -489,6 +533,12 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 					this.repaint();
 				}
 				break;
+		case 6:
+				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1 &&  optionPlate.isAddingImage()) {
+					optionPlate.addImageDragged(canvasToImageWidth(mousePointerX), canvasToImageHeight(mousePointerY), canvasToImageWidth(a), canvasToImageHeight(b));
+					//this.repaint();
+				}
+			break;
 		}
 		mousePointerX = a;
 		mousePointerY = b;

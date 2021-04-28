@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -14,6 +16,7 @@ public class OptionPlate extends JPanel{
 	Line line;
 	Rectangle rectangle;
 	Ellipse ellipse;
+	AddImage addImage;
 	
 	int value ;
 	
@@ -42,11 +45,15 @@ public class OptionPlate extends JPanel{
 		ellipse = new Ellipse();		
 		ellipse.bindOptionPlate(this);
 		
+		addImage = new AddImage();
+		addImage.bindOptionPlate(this);
+		
 		this.add(pen);
 		this.add(eraser);
 		this.add(line);
 		this.add(rectangle);
 		this.add(ellipse);
+		this.add(addImage);
 	}
 	
 	public void bindCanvas(Canvas c) {
@@ -56,6 +63,7 @@ public class OptionPlate extends JPanel{
 		line.bindCanvas(c);
 		rectangle.bindCanvas(c);
 		ellipse.bindCanvas(c);
+		addImage.bindCanvas(c);
 	}
 	
 	public void bindColorPalette(ColorPalette cp) {
@@ -84,6 +92,7 @@ public class OptionPlate extends JPanel{
 		line.unselect();
 		rectangle.unselect();
 		ellipse.unselect();
+		addImage.unselect();
 	}
 	
 	public int getEraserSize() {
@@ -113,4 +122,33 @@ public class OptionPlate extends JPanel{
 	public Color getEllipseFillColor() {
 		return ellipse.getFillColor();
 	}
+	
+	public BufferedImage getAddImage() {
+		return addImage.img;
+	}
+	
+	public boolean isAddingImage() {
+		return addImage.isAddingImage();
+	}
+	
+	public void addImagePressed(int x,int y) {
+		addImage.pressed(x, y);
+	}
+	
+	public void addImageReleased() {
+		addImage.released();
+	}
+	
+	public void addImageDragged(int xp,int yp,int x,int y) {
+		addImage.dragged(xp,yp,x, y);
+	}
+	
+	public void confirmAddingImage() {
+		addImage.confirm();
+	}
+	
+	public void pasteImage(BufferedImage i) {
+		addImage.pasteImage(i);
+	}
+	
 }

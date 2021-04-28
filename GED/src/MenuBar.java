@@ -46,6 +46,7 @@ public class MenuBar extends JPanel{
 	Canvas canvas;
 	JPanel holder;
 	MyFrame frame;
+	OptionPlate optionPlate;
 	
 	Menu fileMenu;
 	Menu editMenu;
@@ -74,6 +75,8 @@ public class MenuBar extends JPanel{
 	//help menu
 	MenuItem userGuideItem;
 	MenuItem aboutGeDItem;
+	
+	
 	
 	MenuBar(){
 		this.setBackground(new Color(0x555555));
@@ -187,7 +190,8 @@ public class MenuBar extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				cutItem.setForeground(new Color(0xabffd5));
 				cutItem.repaint();
-				System.out.println("Cut");
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new ImageTransferable(canvas.getSaveImage()),null);
+				canvas.clear();
 			}
 		});
 		
@@ -204,7 +208,15 @@ public class MenuBar extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				pasteItem.setForeground(new Color(0xabffd5));
 				pasteItem.repaint();
-				System.out.println("Paste");
+				try {
+					Object ob = Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.imageFlavor);
+					BufferedImage im = (BufferedImage)ob;
+					//System.out.println(im);
+					optionPlate.pasteImage(im);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -301,6 +313,10 @@ public class MenuBar extends JPanel{
 	
 	public void bindFrame(MyFrame f) {
 		frame = f;
+	}
+	
+	public void bindOptionPlate(OptionPlate op) {
+		optionPlate = op;
 	}
 	
 	private class Menu extends JLabel implements MouseListener{
