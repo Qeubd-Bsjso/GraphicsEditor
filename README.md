@@ -103,7 +103,8 @@ In the bottom left, you will see a tool to adjust the dimension of the work area
 
 
 > ![SS1](GED/images/Capture1.PNG)
-> ![SS1](GED/images/Capture2.PNG)
+
+> ![SS1](GED/images/Capture2.png)
 
 ## Contributors
 Abhishek Kaundal(185021)
