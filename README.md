@@ -26,7 +26,7 @@ First of all, we need an IDE(Integrated Development Environment) that supports J
 - We prefer **Eclipse** IDE for running this project.
 - Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
 - Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
-  - **Then, open the repository containing the project and run the *main.java* file. **
+  - **Then, open the repository containing the project and run the *main.java* file.**
     -  ![SS3](GED/images/Capture(3).png)
   - **This will open the Graphic editor window.**
       -![SS](GED/images/Capture.PNG)
