@@ -25,7 +25,7 @@ We prefer **Eclipse** IDE for running this project.
 - Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
 - Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
 
-## First window after Running
+## Window after Running
 ![Front page](GED/images/Capture.PNG)
 
 ## Documentation
