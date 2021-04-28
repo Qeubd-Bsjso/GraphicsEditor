@@ -19,6 +19,23 @@ This software will enable us to manipulate images or models visually on the soft
 	- A set of 10 clip boards should be provided to which one can copy various types of selected entities (including groups) for future use in pasting these at different places when required. 
 
 ```
+##Installation
+```
+This project can be downloaded in two ways:
+1. Cloning https://github.com/Qeubd-Bsjso/GraphicsEditor.git in Git CMD.
+   - The command in Git CMD will be:
+     - *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
+2. Downloading the zip file directly and unzipping it latter on.
+   - Zip file can be downloaded by [clicking here](https://github.com/Qeubd-Bsjso/GraphicsEditor/archive/refs/heads/master.zip)
+    - After downloading, this repository needs to be unzipped to its original size.
+```    
+
+##How to run the Project
+```
+First of all, we need an IDE(Integrated Development Environment) which support Java project. We prefer *Eclipse* IDE for running this project.
+- Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
+- Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
+```
 ## Documentation
 *This Graphic Editor Software will have the following features:*
 ```
@@ -91,16 +108,6 @@ In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle,
 In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
 
 ```
-##Installation
-This project can be downloaded in two ways:
-1. Cloning https://github.com/Qeubd-Bsjso/GraphicsEditor.git in Git CMD.
-   - The command in Git CMD will be:
-     - *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
-2. Downloading the zip file directly and unzipping it latter on.
-   - Zip file can be downloaded by [clicking here](https://github.com/Qeubd-Bsjso/GraphicsEditor/archive/refs/heads/master.zip)
-    - After downloading this repository needs to be unzipped.
-
-
 
 ## Contributors
 Abhishek Kaundal(185021)
