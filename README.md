@@ -7,6 +7,10 @@ This software will enable us to manipulate images or models visually on the soft
 ```
 ## Table of Content
 1. [Installation](#install)
+2. [How to run the project](#run)
+3. [Documentation](#document)
+4. [Screenshots](#ss)
+5. [Contributors](#cbt)
 
 
 <a name="install"></a>
@@ -21,7 +25,7 @@ This project can be downloaded in two ways:
     - After downloading, this repository needs to be unzipped to its original size.
 ```    
 
-
+<a name="run"></a>
 ## How to run the Project
 
 First of all, we need an IDE(Integrated Development Environment) that supports Java.
@@ -34,7 +38,7 @@ First of all, we need an IDE(Integrated Development Environment) that supports J
       -![SS](GED/images/Capture.PNG)
 
 
-
+<a name="document"></a>
 ## Documentation
 *This Graphic Editor Software will have the following features:*
 ```
@@ -107,11 +111,13 @@ In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle,
 In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
 
 ```
+<a name="ss"></a>
 ## Screenshot
 -  ![SS](GED/images/Capture.PNG)
 -  ![SS1](GED/images/Capture1.PNG)
 -  ![SS2](GED/images/Capture2.png)
 
+<a name="cbt"></a>
 ## Contributors
 Abhishek Kaundal(185021)
 
