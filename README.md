@@ -99,8 +99,9 @@ In the bottom left, you will see a tool to adjust the dimension of the work area
 
 ```
 ## Screenshot
-- ![SS](GED/images/Capture.PNG)
-- ![SS1](GED/images/Capture1.PNG)
+> ![SS](GED/images/Capture.PNG)
+
+> ![SS1](GED/images/Capture1.PNG)
 
 ## Contributors
 Abhishek Kaundal(185021)
