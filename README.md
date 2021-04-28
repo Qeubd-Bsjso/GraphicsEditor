@@ -1,5 +1,5 @@
 # GraphicsEditor
-![Front page](GED/images/backgrounds/notebook.png)
+![Front page](GED/images/Capture.png)
 ## Overview
 ```
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
