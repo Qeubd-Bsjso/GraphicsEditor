@@ -7,6 +7,7 @@ This software will enable us to manipulate images or models visually on the soft
 ```
 
 
+
 ## Installation
 ```
 This project can be downloaded in two ways:
@@ -18,12 +19,14 @@ This project can be downloaded in two ways:
     - After downloading, this repository needs to be unzipped to its original size.
 ```    
 
+
 ## How to run the Project
 
 First of all, we need an IDE(Integrated Development Environment) that supports Java.
 We prefer **Eclipse** IDE for running this project.
 - Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
 - Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
+
 
 
 ## Documentation
