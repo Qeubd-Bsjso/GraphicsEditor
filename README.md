@@ -1,5 +1,5 @@
 # GraphicsEditor
-![Image of Yaktocat](GED/images/backgrounds/notebook.png)
+![Front page](GED/images/backgrounds/notebook.png)
 ## Overview
 ```
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
