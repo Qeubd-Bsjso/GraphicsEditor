@@ -1,8 +1,9 @@
 # GraphicsEditor
 ## Overview
+```
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
 This software will enable us to manipulate images or models visually on the software window. 
-
+```
 ## Requirments
 ```
 	- Creating several types of geometric objects such as circles, ellipses, rectangles, lines, polygons, and texts associated with them.
@@ -19,8 +20,9 @@ This software will enable us to manipulate images or models visually on the soft
 
 ```
 ## Documentation
+*This Graphic Editor Software will have the following features:*
+```
 In the graphics editor , in the top left, we have 4 options in menu bar namely File, Edit, Trasform and Help.
-
 
 In the file menu, you will see these buttons : "New , Load , Save ,Save As, Clear, Exit" 
 
@@ -88,6 +90,9 @@ In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle,
 
 In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
 
+```
+##Installation
+This project can be downloaded by [clicking here]( )
 
 
 ## Contributors
