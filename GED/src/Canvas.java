@@ -239,6 +239,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		bggraphics = backgroundImg.createGraphics();
 		graphics.drawImage(tempImg, 0, imgHeight, imgWidth, -imgHeight, null);
 		bggraphics.drawImage(tempBackgroundImg, 0, imgHeight, imgWidth, -imgHeight, null);
+		graphics.setBackground(new Color(255,255,255,0));
 		this.repaint();
 	}
 	
@@ -254,6 +255,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		bggraphics = backgroundImg.createGraphics();
 		graphics.drawImage(tempImg, imgWidth, 0, -imgWidth, imgHeight, null);
 		bggraphics.drawImage(tempBackgroundImg, imgWidth, 0, -imgWidth, imgHeight, null);
+		graphics.setBackground(new Color(255,255,255,0));
 		this.repaint();
 	}
 	
@@ -285,6 +287,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		bg.dispose();
 		
 		graphics = img.createGraphics();
+		graphics.setBackground(new Color(255,255,255,0));
 		bggraphics = backgroundImg.createGraphics();
 		
 		imgWidth = newImgWidth;
@@ -325,6 +328,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		bg.dispose();
 		
 		graphics = img.createGraphics();
+		graphics.setBackground(new Color(255,255,255,0));
 		bggraphics = backgroundImg.createGraphics();
 		
 		imgWidth = newImgWidth;
