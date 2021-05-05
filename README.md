@@ -1,24 +1,44 @@
 # GraphicsEditor
+
 ## Overview
 ```
 This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
 This software will enable us to manipulate images or models visually on the software window. 
 ```
-## Requirments
-```
-	- Creating several types of geometric objects such as circles, ellipses, rectangles, lines, polygons, and texts associated with them.
-	- Modifying various characteristics of an object such as its shape, size, location, color, fill style, line width, line style (dashed, dotted, continuous), etc. can be changed. For texts, the text content can be changed.
-	- It should be possible to select an object by clicking a mouse button on the object icon. This icon should be shown in a highlighted color.
-	- Copying or moving the selected object to a different location, or deleting a selected object.
-	- Saving the created graphics on the disk under a user specified name. Loading a previously created graphics file from the disk.
-	- Importing bitmap pictures into specified positions in the drawing.
-	- Defining a rectangular area on the screen and zooming the area to fill the entire screen.
-	- A fit screen function to make the entire created graphics fit the screen by automatically adjusting the zoom and pan values.
-	- A pan function to shift the displayed drawing along any direction by a specified amount.
-	- A grouping function to handle complex drawings. A group can be formed by selecting a set of objects.A group can include other groups as well. A drawing object can be a member of at most one group. A group behaves as a single entity for move, copy and delete operations.
-	- A set of 10 clip boards should be provided to which one can copy various types of selected entities (including groups) for future use in pasting these at different places when required. 
+## Table of Content
+1. [Installation](#install)
+2. [How to run the project](#run)
+3. [Documentation](#document)
+4. [Screenshots](#ss)
+5. [Contributors](#cbt)
 
+
+<a name="install"></a>
+## Installation
 ```
+This project can be downloaded in two ways:
+1. Cloning https://github.com/Qeubd-Bsjso/GraphicsEditor.git in Git CMD.
+   - The command in Git CMD will be:
+     - *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
+2. Downloading the zip file directly and unzipping it latter on.
+   - Zip file can be downloaded by  [clicking here](https://github.com/Qeubd-Bsjso/GraphicsEditor/archive/refs/heads/master.zip)
+    - After downloading, this repository needs to be unzipped to its original size.
+```    
+
+<a name="run"></a>
+## How to run the Project
+
+First of all, we need an IDE(Integrated Development Environment) that supports Java.
+- We prefer **Eclipse** IDE for running this project.
+- Eclipse can be downloaded by the official site of [Eclipse](https://www.eclipse.org) for the specific operating system.
+- Or directly by [clicking here](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2021-03/R/eclipse-inst-jre-win64.exe) in Windows.
+  - **Then, open the repository containing the project and run the *main.java* file.**
+    -  ![SS3](GED/images/Capture(3).png)
+  - **This will open the Graphic editor window.**
+      -![SS](GED/images/Capture.PNG)
+
+
+<a name="document"></a>
 ## Documentation
 *This Graphic Editor Software will have the following features:*
 ```
@@ -91,15 +111,13 @@ In the right side , you can see tools like Pen, Eraser, Line, Rectangle, Circle,
 In the bottom left, you will see a tool to adjust the dimension of the work area, alongwith it will also show the current position of the pointer in 2D plane.
 
 ```
-##Installation
-This project can be downloaded in two ways:
-1. Cloning https://github.com/Qeubd-Bsjso/GraphicsEditor.git in Git CMD.
-   - The command in Git CMD will be:
-     - *git clone https://github.com/Qeubd-Bsjso/GraphicsEditor.git*
-2. Downloading the zip file directly and unzipping it latter on.
+<a name="ss"></a>
+## Screenshot
+-  ![SS](GED/images/Capture.PNG)
+-  ![SS1](GED/images/Capture1.PNG)
+-  ![SS2](GED/images/Capture2.png)
 
-
-
+<a name="cbt"></a>
 ## Contributors
 Abhishek Kaundal(185021)
 
