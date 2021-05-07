@@ -1,6 +1,6 @@
 # GraphicsEditor
 
-##Details
+## Details
 ```
 Team Members Name: 1. Abhishek Kaundal(185021)
                    2. Saurav Sharma(185025)
