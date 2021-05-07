@@ -1,8 +1,19 @@
 # GraphicsEditor
 
+##Details
+```
+Team Members Name: 1. Abhishek Kaundal(185021)
+                   2. Saurav Sharma(185025)
+                   3. Shiv Kumar(185033)
+Course: CSD-327 Software Engineering LAB
+Date: May 7th,2021
+Submitted to: Dr. Dharmendra Prasad Mahto
+```
+
 ## Overview
 ```
-This repository contains a lab project for Software engineering. We are implementing 'A Graphics Editor Software' using Java.
+This repository contains a lab project for Software engineering.
+We are implementing 'A Graphics Editor Software' using Java.
 This software will enable us to manipulate images or models visually on the software window. 
 ```
 ## Table of Content
