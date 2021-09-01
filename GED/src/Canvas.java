@@ -426,7 +426,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 3:	
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("line",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null,imgWidth,imgHeight);
+					object = new DrawLine(canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getLineWidth(),palette.getPrimaryColor(),null,imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -434,7 +434,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 4:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("rectangle",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor(),imgWidth,imgHeight);
+					object = new DrawRect(canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getRectangleLineWidth(),palette.getPrimaryColor(),optionPlate.getRectangleFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -442,7 +442,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 				break;
 		case 5:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectCreated == false) {
-					object = new DrawableObject("ellipse",canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor(),imgWidth,imgHeight);
+					object = new DrawEllipse(canvasToImageWidth(a),canvasToImageHeight(b),optionPlate.getEllipseLineWidth(),palette.getPrimaryColor(),optionPlate.getEllipseFillColor(),imgWidth,imgHeight);
 					this.repaint();
 					objectCreated = true;
 					objectDrawn = false;
@@ -533,7 +533,7 @@ public class Canvas extends JPanel implements MouseListener , MouseMotionListene
 		case 4:
 		case 5:
 				if(SwingUtilities.isLeftMouseButton(e)&&mousePointerX != -1&&objectDrawn == false) {
-					object.updateP2(canvasToImageWidth(a),canvasToImageHeight(b));
+					object.update(canvasToImageWidth(a),canvasToImageHeight(b));
 					this.repaint();
 				}
 				break;

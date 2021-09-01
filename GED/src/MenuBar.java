@@ -65,7 +65,7 @@ public class MenuBar extends JPanel{
 	MenuItem copyItem;
 	MenuItem pasteItem;
 	
-	// insert menu
+	// transform menu
 	MenuItem flipVerticalItem;
 	MenuItem flipHorizontalItem;
 	MenuItem rotateRightItem;
